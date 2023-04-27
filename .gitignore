@@ -139,3 +139,4 @@ models/*
 # ignore data folder, but not the readme within !
 images/*
 !images/README.md 
+!images/metadata
