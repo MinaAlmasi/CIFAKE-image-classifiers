@@ -1,5 +1,5 @@
 '''
-Load and preprocess CIFAKE data 
+Create metadata for CIFAKE data containing file names, file paths and classes. 
 '''
 
 # utils 
@@ -7,7 +7,7 @@ import pathlib
 
 # data wrangling 
 import pandas as pd
-import re 
+
 
 def get_filenames(subdirectory:str): 
     # if subdirectory is a directory and file is a regular file, get file name (file.name)
@@ -31,6 +31,7 @@ def create_dataframe(filenames:list, class_labels:dict, datapath:pathlib.Path, f
     # create dataframe with filenames from label name
     df = pd.DataFrame(filenames, columns=["filename"])
 
+    # define pattern that you want to extract 
     pattern = "\((\d+)\)"
 
     # extract label from filename
@@ -48,8 +49,15 @@ def create_dataframe(filenames:list, class_labels:dict, datapath:pathlib.Path, f
 
 def save_metadata(filenames:dict, class_labels:dict, datapath:pathlib.Path, metadatapath:pathlib.Path):
     for folderlabel, folderfilenames in filenames.items():
+        # create dataframe
         temp_df = create_dataframe(folderfilenames, class_labels, datapath, folderlabel)
-        temp_df.to_csv(metadatapath / f"{folderlabel}_{datapath.name}.csv", index=False)
+
+        # define path 
+        filepath = metadatapath / folderlabel
+        filepath.mkdir(exist_ok=True, parents=True)
+
+        # save dataframe to CSV 
+        temp_df.to_csv(filepath/ f"{datapath.name}.csv", index=False)
 
 def main(): 
     # define paths 
@@ -58,7 +66,6 @@ def main():
     testpath = path.parents[1] / "images" / "test"
 
     metadatapath = path.parents[1] / "images" / "metadata"
-    metadatapath.mkdir(exist_ok=True) # make metadata directory if it doesn't exist
 
     # define label names in reverse order explicitly
     labels = {1:"airplane", 2:"automobile", 3:"bird", 4:"cat", 5:"deer", 6:"dog", 7:"frog", 8:"horse", 9:"ship", 10:"truck"}
