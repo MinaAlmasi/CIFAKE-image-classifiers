@@ -33,14 +33,14 @@ def load_metadata(metadatapath:str): # function adapted from previous assignment
 
     return metadata
 
-
-def load_tf_data(datagen, metadata, imagepath_col:str, label_col:str, image_size:tuple, batch_size:int, shuffle:bool, subset:str=None):
+def load_tf_data(datagen, metadata, color_mode, imagepath_col:str, label_col:str, image_size:int, batch_size:int, shuffle:bool, subset:str=None):
     '''
     Loads and preprocess data using Tensorflow's ImageDataGenerator and its method .flow_from_dataframe(). ImageDataGenerator has to be instantiated already. 
 
     Args: 
         - datagen: initalised ImageDataGenerator 
         - metadata: dataframe containing image paths (imagepath_col) and class labels (label_col)
+        - color_mode: "greyscale" or "rgb" 
 
         - imagepath_col: column containing image paths in the metadata
         - label_col: column containing class labels in the metadata
@@ -61,36 +61,13 @@ def load_tf_data(datagen, metadata, imagepath_col:str, label_col:str, image_size
         subset = subset,
         x_col = imagepath_col, 
         y_col = label_col, 
-        target_size = image_size, 
         batch_size = batch_size, 
         class_mode = "categorical", 
+        color_mode = color_mode,
         shuffle = shuffle, 
         seed = 129
     )
 
     return data
 
-
-import pathlib
-def main(): 
-    path = pathlib.Path(__file__)
-    metadatapath = path.parents[1] / "images" / "metadata" / "FAKE"
-
-    meta_dict = load_metadata(metadatapath)
-
-    # intialise datagenerator
-    datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2) 
-
-    # training data 
-    train = load_tf_data(datagen, meta_dict["train"], "filepath", "label", (32, 32), 64, shuffle=True, subset="training")
-
-    # load val data 
-    val = load_tf_data(datagen, meta_dict["train"], "filepath", "label", (32, 32), 64, shuffle=True, subset="validation")
-
-    # load test data
-    test = load_tf_data(datagen, meta_dict["test"], "filepath", "label", (32, 32), 64, shuffle=False)
-
     
-
-if __name__ == "__main__":
-    main()

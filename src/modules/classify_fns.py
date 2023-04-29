@@ -6,9 +6,6 @@ This script comprises several functions which make up a pipeline for training mo
 @MinaAlmasi
 '''
 
-# simple neural network
-from tensorflow.keras.models import Sequential
-
 # keras layers 
 from tensorflow.keras.layers import (Flatten, 
                                      Dense, 
@@ -20,34 +17,6 @@ from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.optimizers import SGD
 
 # functions
-def simple_neural_network(input_shape:tuple=(32, 32, 3), output_layer_size:int=10):
-    '''
-    Instantiate simple neural network with 2 hidden layers. 
-
-    Args: 
-        - input_shape: tuple with image size and number of channels. Defaults to (32, 32, 3) i.e., images with 32x32 pixels and 3 color channels. 
-        - output_layer_size: size of output layer. Should correspond to the amount of classes to be predicted. 
-
-    Return: 
-        - model: simple neural netowrk 
-
-    '''
-
-    # intialize model 
-    model = Sequential()
-
-    # add hidden layer
-    model.add(Dense(128, input_shape = input_shape, activation="relu"))
-
-    # add second hidden lay er
-    model.add(Dense(64, activation="relu"))
-
-    # add output layer 
-    model.add(Dense(output_layer_size, activation="softmax"))
-
-    return model 
-
-
 def optimise_model(model): 
     '''
     Define a dynamic learning rate and compile the model with it (model optimisation).
