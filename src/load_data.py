@@ -61,6 +61,7 @@ def load_tf_data(datagen, metadata, color_mode, imagepath_col:str, label_col:str
         subset = subset,
         x_col = imagepath_col, 
         y_col = label_col, 
+        target_size = image_size,
         batch_size = batch_size, 
         class_mode = "categorical", 
         color_mode = color_mode,
