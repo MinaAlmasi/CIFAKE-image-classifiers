@@ -1,26 +1,74 @@
 '''
-Script for Assignment 3, Visual Analytics, Cultural Data Science, F2023
+Script for self-assigned (Assignment 4), Visual Analytics, Cultural Data Science, F2023
 
-This script comprises several functions used for evaluating a CNN being trained with tensorflow. 
-This entails saving the training and validation plot as well as the classification metrics.
-
-The functions in this module are either adapted from a previous portfolio assignment or from class.
-This will be stated in a comment beside the function.
+This script comprises several functions which make up a pipeline for training and evaluating models using tensorflow and keras. 
 
 @MinaAlmasi
 '''
 
-# util 
-import numpy as np
-import pickle
+# keras layers 
+from tensorflow.keras.layers import (Flatten, 
+                                     Dense, 
+                                     Dropout, 
+                                     BatchNormalization)
 
-# plotting
-import matplotlib.pyplot as plt
-
-# evaluation ! 
-from sklearn.metrics import classification_report
+# optimizers
+from tensorflow.keras.optimizers.schedules import ExponentialDecay
+from tensorflow.keras.optimizers import SGD
 
 # functions
+def optimise_model(model): 
+    '''
+    Define a dynamic learning rate and compile the model with it (model optimisation).
+
+    Args: 
+        - model: intialised tensorflow model 
+    
+    Returns: 
+        - model: model compiled with new learning rate ! 
+    '''
+
+    # define optimisation schedule 
+    lr_schedule = ExponentialDecay(initial_learning_rate=0.01, decay_steps=10000, decay_rate=0.9)
+    
+    # insert optimisation schedule in algorithm
+    sgd = SGD(learning_rate=lr_schedule)
+
+    # compile model with optimisation algorithm
+    model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
+    
+    return model
+
+def train_model(model, train_data, validation_data, epochs:int, early_stop_epochs:int=3):    
+    '''
+    Train initalised CNN for a specified amount of epochs. Evaluate model on validation data. 
+
+    Args: 
+        - model: intialised CNN
+        - train_data: the data to be trained on 
+        - validation_data: the data that the model evaluated on 
+        - epochs: number of epochs that the model should train for
+        - early_stop_epochs: number of epochs that the model should CONTINUE training for if accuracy does not improve (early stopping parameter).
+
+    Returns: 
+        - history: history object containing information about the model training (e.g., loss and accuracy) 
+            see documentation for more info: https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/History 
+    '''
+
+    # early stopping
+    callback = EarlyStopping(monitor='val_accuracy', patience=early_stop_epochs, restore_best_weights=True, verbose=1)
+
+    # train model
+    history = model.fit( # batch_size is not defined in model.fit as documentation specifies that is should not be done when using a data generator (https://www.tensorflow.org/api_docs/python/tf/keras/Model)
+        train_data, 
+        validation_data = validation_data,
+        epochs=epochs, 
+        verbose=1, 
+        use_multiprocessing=True
+        )
+
+    return history
+
 def save_model_card(model, savepath:str, filename): # adapted from prev. assignment
     '''
     Save model card (summary of layers, trainable parameters) as txt file in desired directory (savepath).
@@ -146,3 +194,35 @@ def save_model_metrics(model_metrics, savepath, filename): # adapted from prev. 
     # write model metrics to txt
     with open(filepath, "w") as file: 
         file.write(model_metrics)
+    
+
+def model_pipeline(train_data, val_data, test_data, epochs, model_name):
+    '''
+    Train and evaluate instantiated keras model with scikit-learn and tensorflow. 
+    '''
+
+    # optimise intialized model 
+    model = optimise_model(model)
+
+    # train model 
+    print("[INFO]: Training model")
+    model_history = train_model(model, train_data, val_data, epochs)
+
+    # save model 
+    model.save(model_path / f"model_{epochs}e.h5")
+
+    # save plot history and history object 
+    plot_model_history(model_history, n_epochs, outpath, f"{model_name}_history_{epochs}e.png")
+
+    # evaluate model
+    print("[INFO]: Evaluating model")
+    metrics = get_model_metrics(model, test_data)
+
+    # save metrics 
+    print("[INFO]: Classification pipeline complete. Saving model")
+    save_model_metrics(metrics, outpath, f"{model_name}_metrics_{n_epochs}e.txt")
+
+
+
+
+
