@@ -10,15 +10,14 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
 
 # custom modules
-from modules.data_fns import load_metadata, load_tf_data
-from modules.classify_fns import optimise_model, train_model
-from modules.evaluate_fns import save_model_card, plot_model_history, get_model_metrics, save_model_metrics
+from load_data import load_metadata, load_tf_data
+from classify_pipeline import clf_pipeline
 
 def input_parse():
     parser = argparse.ArgumentParser()
 
     # add arguments 
-    parser.add_argument("-data", "--data_label", help = "'FAKE' or 'REAL' to indicate which dataset you want to run the model training on", type = int, default="FAKE")
+    parser.add_argument("-data", "--data_label", help = "'FAKE' or 'REAL' to indicate which dataset you want to run the model training on", type = str, default="FAKE")
     parser.add_argument("-epochs", "--n_epochs", help = "number of epochs the model is run for", type = int, default=3)
 
     # save arguments to be parsed from the CLI
@@ -60,6 +59,8 @@ def main():
     # define paths 
     path = pathlib.Path(__file__)
     metadatapath = path.parents[1] / "images" / "metadata" / args.data_label # args.data_label is either FAKE or REAL (indicating which dataset to work on)
+    resultspath = path.parents[1] / "results"
+    modelpath = path.parents[1] / "models" / "NN_model"
 
     # load metadata 
     meta_dict = load_metadata(metadatapath)
@@ -79,35 +80,18 @@ def main():
     # intialize model
     print("[INFO]: Intializing model")
     model = simple_neural_network()
-    save_model_card(model, n_epochs, outpath, "model_card.txt") # save model card 
 
-    # optimise model
-    model = optimise_model(model)
-
-    # define epochs 
-    n_epochs = args.n_epochs
-
-    # train model
-    print("[INFO]: Training model")
-    model_history = train_model(model, train, val, n_epochs)
-
-    # save model 
-    modelpath = path.parents[1] / "models" / "NN_model" # define folder
-    modelpath.mkdir(exist_ok=True, parents=True) # make if it does not exist
-
-    # save model 
-    model.save(modelpath / f"NN_model_{n_epochs}_epochs.h5")
-
-    # save plot history (training and validation loss)
-    plot_model_history(model_history, n_epochs, outpath, f"history_{n_epochs}_epochs.png")
-
-    # evaluate model 
-    print("[INFO]: Evaluating model")
-    metrics = get_model_metrics(model, test_data)
-
-    # save metrics
-    print("[INFO]: Saving model")
-    save_model_metrics(metrics, outpath, f"metrics_{n_epochs}_epochs.txt")
+    # train pipeline 
+    clf_pipeline(
+        model = model, 
+        train_data = train, 
+        val_data = val, 
+        test_data = test, 
+        epochs = args.n_epochs,
+        model_name = "NN_model",
+        modelpath = modelpath,
+        resultspath = resultspath
+    )
 
 if __name__ == "__main__":
     main()

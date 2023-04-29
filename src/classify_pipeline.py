@@ -12,12 +12,35 @@ from tensorflow.keras.layers import (Flatten,
                                      Dropout, 
                                      BatchNormalization)
 
+
+from tensorflow.keras.callbacks import EarlyStopping
+
 # optimizers
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.optimizers import SGD
 
 # functions
-def optimise_model(model): 
+def clf_save_model_card(model, savepath:str, filename): # adapted from prev. assignment
+    '''
+    Save model card (summary of layers, trainable parameters) as txt file in desired directory (savepath).
+
+    Args: 
+        - model: model with defined layers
+        - savepath: path where model card should be saved 
+        - filename: what the .txt file should be called
+    
+    Outputs: 
+        - .txt file of model summary in "savepath"
+    '''
+
+    # define full path
+    filepath = savepath / filename
+    
+    # write model summary as txt
+    with open(filepath,'w') as file:
+        model.summary(print_fn=lambda x: file.write(x + '\n'))
+
+def clf_optimise_model(model): 
     '''
     Define a dynamic learning rate and compile the model with it (model optimisation).
 
@@ -39,7 +62,7 @@ def optimise_model(model):
     
     return model
 
-def train_model(model, train_data, validation_data, epochs:int, early_stop_epochs:int=3):    
+def clf_train(model, train_data, validation_data, epochs:int, early_stop_epochs:int=3):    
     '''
     Train initalised CNN for a specified amount of epochs. Evaluate model on validation data. 
 
@@ -64,43 +87,13 @@ def train_model(model, train_data, validation_data, epochs:int, early_stop_epoch
         validation_data = validation_data,
         epochs=epochs, 
         verbose=1, 
-        use_multiprocessing=True
+        use_multiprocessing=True,
+        callbacks=[callback]
         )
 
     return history
 
-def save_model_card(model, savepath:str, filename): # adapted from prev. assignment
-    '''
-    Save model card (summary of layers, trainable parameters) as txt file in desired directory (savepath).
-
-    Args: 
-        - model: model with defined layers
-        - savepath: path where model card should be saved 
-        - filename: what the .txt file should be called
-    
-    Outputs: 
-        - .txt file of model summary in "savepath"
-    '''
-
-    # define full path
-    filepath = savepath / filename
-    
-    # write model summary as txt
-    with open(filepath,'w') as file:
-        model.summary(print_fn=lambda x: file.write(x + '\n'))
-
-def save_model_history(model_hist, save_path, filename):
-    '''
-    Save model history 
-    '''
-    
-    # define 
-    filepath = savepath / filename
-
-    with open(filename, 'wb') as file:
-        pickle.dump(model_hist.history, file)
-
-def plot_model_history(model_hist, epochs, savepath, filename): # adapted from class notebook
+def clf_plot_history(model_hist, epochs, savepath, filename): # adapted from class notebook
     '''
     Plots two subplots, one for training and validation loss and the other for training and validation accuracy.
     Saves to .png file
@@ -147,7 +140,7 @@ def plot_model_history(model_hist, epochs, savepath, filename): # adapted from c
    
     plt.savefig(savepath / filename, dpi=300)
 
-def get_model_metrics(model, test_data):
+def clf_get_metrics(model, test_data):
     '''
     Evaluates fitted classifier model on test data, returns classification report.
 
@@ -175,54 +168,41 @@ def get_model_metrics(model, test_data):
 
     return model_metrics
 
-def save_model_metrics(model_metrics, savepath, filename): # adapted from prev. assignment
-    '''
-    Converts scikit-learn's classification report (metrics.classification_report) to a .txt file. 
-
-    Args:
-        - model_metrics: metrics report (sklearn.metrics.classification_report() or returned from clf_evaluate)
-        - filename: filename for .txt report
-        - savepath: directory where the text file should be stored. 
-    
-    Outputs: 
-        - .txt file of metrics in "savepath"
-    '''
-
-    # define filename 
-    filepath = savepath / filename
-
-    # write model metrics to txt
-    with open(filepath, "w") as file: 
-        file.write(model_metrics)
-    
-
-def model_pipeline(train_data, val_data, test_data, epochs, model_name):
+def clf_pipeline(model, train_data, val_data, test_data, epochs, model_name, modelpath, resultspath):
     '''
     Train and evaluate instantiated keras model with scikit-learn and tensorflow. 
     '''
 
+    # make paths if they do not exist
+    resultspath.mkdir(exist_ok=True, parents=True)
+    modelpath.mkdir(exist_ok=True, parents=True)
+
     # optimise intialized model 
-    model = optimise_model(model)
+    model = clf_optimise_model(model)
 
     # train model 
     print("[INFO]: Training model")
-    model_history = train_model(model, train_data, val_data, epochs)
+    model_history = clf_train(model, train_data, val_data, epochs, early_stop_epochs=3)
+
+    # save model history 
+    with open(resultspath / f"{model_name}_hist_{n_epochs}_epochs.png", 'wb') as file:
+        pickle.dump(model_hist.history, file)
 
     # save model 
-    model.save(model_path / f"model_{epochs}e.h5")
+    model.save(modelpath / f"model_{epochs}e.h5")
+
+    # save model card
+    clf_save_model_card(model, modelpath, f"{model_name}_model_card.txt") # save model card 
 
     # save plot history and history object 
-    plot_model_history(model_history, n_epochs, outpath, f"{model_name}_history_{epochs}e.png")
+    clf_plot_history(model_history, n_epochs, resultspath, f"{model_name}_hist_{epochs}e.png")
 
     # evaluate model
     print("[INFO]: Evaluating model")
-    metrics = get_model_metrics(model, test_data)
+    metrics = clf_get_metrics(model, test_data)
 
     # save metrics 
     print("[INFO]: Classification pipeline complete. Saving model")
-    save_model_metrics(metrics, outpath, f"{model_name}_metrics_{n_epochs}e.txt")
 
-
-
-
-
+    with open(resultspath / f"{model_name}_metrics_{n_epochs}e.txt", "w") as file: 
+        file.write(metrics)
