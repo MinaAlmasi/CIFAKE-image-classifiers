@@ -1,7 +1,14 @@
 # CIFAKE-image-classifiers
 This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. The assignment description can be found here. All code is written by Mina Almasi (202005465) although some code may be adapted from classwork (see also [Code Reuse]()).
 
-The repository contains code to train several classifiers on the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset (Bird & Lofti, 2023). 
+The repository contains code to train six classifiers on the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset (Bird & Lofti, 2023). 
+
+## Data 
+The CIFAKE dataset contains 60,000 images that are synthetically generated to be equivalent to the CIFAR-10 dataset (Krizhevsky, 2009) along with 60,000 original CIFAR-10 images. 
+
+<p align="center">
+  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/docs/CIFAKE-dataset.png">
+</p>
 
 
 ## Reproducibility 
