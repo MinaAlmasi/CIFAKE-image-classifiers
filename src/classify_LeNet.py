@@ -92,6 +92,7 @@ def main():
         val_data = val, 
         test_data = test, 
         epochs = args.n_epochs,
+        early_stop_epochs=2,
         model_name = f"{args.data_label}_LeNet",
         modelpath = modelpath,
         resultspath = resultspath

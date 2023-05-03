@@ -173,7 +173,7 @@ def clf_get_metrics(model, test_data):
 
     return model_metrics
 
-def clf_pipeline(model, train_data, val_data, test_data, epochs, model_name, modelpath, resultspath):
+def clf_pipeline(model, train_data, val_data, test_data, epochs:int, early_stop_epochs:int, model_name, modelpath, resultspath):
     '''
     Train and evaluate instantiated keras model with scikit-learn and tensorflow. 
     '''
@@ -190,7 +190,7 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs, model_name, mod
 
     # train model 
     logging.info("Training model")
-    model_history = clf_train(model, train_data, val_data, epochs, early_stop_epochs=3)
+    model_history = clf_train(model, train_data, val_data, epochs, early_stop_epochs=early_stop_epochs)
 
     # save model history 
     with open(resultspath / f"{model_name}_hist_{n_epochs}_epochs.png", 'wb') as file:
