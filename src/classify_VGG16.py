@@ -1,3 +1,9 @@
+'''
+Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
+
+Classify CIFAKE dataset using the pre-trained CNN VGG16
+'''
+
 import pathlib
 import sys
 sys.path.append(str(pathlib.Path(__file__).parents[1]))

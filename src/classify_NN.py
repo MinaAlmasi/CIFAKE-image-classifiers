@@ -1,5 +1,7 @@
 '''
-Classify CIFAKE dataset 
+Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
+
+Classify CIFAKE dataset using a simple neural network
 '''
 
 import pathlib

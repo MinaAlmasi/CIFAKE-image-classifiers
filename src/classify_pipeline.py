@@ -1,5 +1,5 @@
 '''
-Script for self-assigned (Assignment 4), Visual Analytics, Cultural Data Science, F2023
+Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
 
 This script comprises several functions which make up a pipeline for training and evaluating models using tensorflow and keras. 
 
