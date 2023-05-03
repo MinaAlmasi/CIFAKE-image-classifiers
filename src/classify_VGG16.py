@@ -1,6 +1,6 @@
-
 import pathlib
-import argparse
+import sys
+sys.path.append(str(pathlib.Path(__file__).parents[1]))
 
 # image import 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -14,18 +14,7 @@ from tensorflow.keras.models import Model # generic model object
 # custom modules
 from load_data import load_metadata, load_tf_data
 from classify_pipeline import clf_pipeline
-
-def input_parse():
-    parser = argparse.ArgumentParser()
-
-    # add arguments 
-    parser.add_argument("-data", "--data_label", help = "'FAKE' or 'REAL' to indicate which dataset you want to run the model training on", type = str, default="FAKE")
-    parser.add_argument("-epochs", "--n_epochs", help = "number of epochs the model is run for", type = int, default=3)
-
-    # save arguments to be parsed from the CLI
-    args = parser.parse_args()
-
-    return args
+from utils import custom_logger, input_parse
 
 def cnn_vgg16(input_shape:tuple=(32, 32, 3), output_layer_size:int=10): 
     '''
@@ -64,11 +53,14 @@ def main():
     # define args
     args = input_parse()
 
+    # initialize logger
+    logging = custom_logger("VGG16_classifier")
+
     # define paths 
     path = pathlib.Path(__file__)
     metadatapath = path.parents[1] / "images" / "metadata" / args.data_label # args.data_label is either FAKE or REAL (indicating which dataset to work on)
     resultspath = path.parents[1] / "results"
-    modelpath = path.parents[1] / "models" / "NN_model"
+    modelpath = path.parents[1] / "models" / "VGG16_model"
 
     # load metadata 
     meta_dict = load_metadata(metadatapath)
@@ -86,7 +78,7 @@ def main():
     test = load_tf_data(datagen, meta_dict["test"], "rgb", "filepath", "label", (32, 32), 64, shuffle=False)
 
     # intialize model
-    print("[INFO]: Intializing model")
+    logging.info("Intializing model")
     model = vgg16()
 
     # train pipeline 
@@ -96,7 +88,7 @@ def main():
         val_data = val, 
         test_data = test, 
         epochs = args.n_epochs,
-        model_name = "NN_model",
+        model_name = f"{args.data_label}_VGG16",
         modelpath = modelpath,
         resultspath = resultspath
     )

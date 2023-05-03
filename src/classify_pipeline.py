@@ -19,6 +19,11 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.optimizers import SGD
 
+# logging 
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).parents[1]))
+from utils import custom_logger
+
 # functions
 def clf_save_model_card(model, savepath:str, filename): # adapted from prev. assignment
     '''
@@ -173,6 +178,9 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs, model_name, mod
     Train and evaluate instantiated keras model with scikit-learn and tensorflow. 
     '''
 
+    # intialize logger 
+    logging = custom_logger("classify_pipeline")
+
     # make paths if they do not exist
     resultspath.mkdir(exist_ok=True, parents=True)
     modelpath.mkdir(exist_ok=True, parents=True)
@@ -181,7 +189,7 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs, model_name, mod
     model = clf_optimise_model(model)
 
     # train model 
-    print("[INFO]: Training model")
+    logging.info("Training model")
     model_history = clf_train(model, train_data, val_data, epochs, early_stop_epochs=3)
 
     # save model history 
@@ -198,11 +206,11 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs, model_name, mod
     clf_plot_history(model_history, n_epochs, resultspath, f"{model_name}_hist_{epochs}e.png")
 
     # evaluate model
-    print("[INFO]: Evaluating model")
+    logging.info("Evaluating model")
     metrics = clf_get_metrics(model, test_data)
 
     # save metrics 
-    print("[INFO]: Classification pipeline complete. Saving model")
+    logging.info("Classification pipeline complete. Saving model")
 
     with open(resultspath / f"{model_name}_metrics_{n_epochs}e.txt", "w") as file: 
         file.write(metrics)
