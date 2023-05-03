@@ -197,7 +197,7 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs:int, early_stop_
         pickle.dump(model_hist.history, file)
 
     # save model 
-    model.save(modelpath / f"model_{epochs}e.h5")
+    model.save(modelpath / f"{model_name}_model_{epochs}e.h5")
 
     # save model card
     clf_save_model_card(model, modelpath, f"{model_name}_model_card.txt") # save model card 
