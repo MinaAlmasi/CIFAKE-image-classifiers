@@ -73,9 +73,11 @@ def main():
     modelpath = path.parents[1] / "models" / "LeNet_model"
 
     # load metadata 
+    logging.info(f"Loading metadata {args.data_label} ...")
     meta_dict = load_metadata(metadatapath)
 
     # intialise datagenerator
+    logging.info(f"Loading metadatadata {args.data_label} ...")
     datagen = ImageDataGenerator(rescale=1/255, validation_split=0.2, dtype="float32") 
 
     # training data 
@@ -88,7 +90,7 @@ def main():
     test = load_tf_data(datagen, meta_dict["test"], "rgb", "filepath", "label", (32, 32), 64, shuffle=False)
 
     # intialize model
-    print("[INFO]: Intializing model")
+    logging.info("Intializing model ...")
     model = cnn_lenet()
 
     # train pipeline 

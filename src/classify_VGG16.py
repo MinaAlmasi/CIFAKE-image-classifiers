@@ -69,9 +69,11 @@ def main():
     modelpath = path.parents[1] / "models" / "VGG16_model"
 
     # load metadata 
+    logging.info(f"Loading metadata {args.data_label} ...")
     meta_dict = load_metadata(metadatapath)
 
     # intialise datagenerator
+    logging.info(f"Loading data {args.data_label} ...")
     datagen = ImageDataGenerator(preprocessing_function=preprocess_input, validation_split=0.2, dtype="float32") 
 
     # training data 

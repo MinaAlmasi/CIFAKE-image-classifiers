@@ -62,11 +62,11 @@ def main():
     modelpath = path.parents[1] / "models" / "NN_model"
 
     # load metadata 
-    logging.info("Loading metadata ...")
+    logging.info(f"Loading metadata {args.data_label} ...")
     meta_dict = load_metadata(metadatapath)
 
     # intialise datagenerator
-    logging.info("Loading data ...")
+    logging.info(f"Loading data {args.data_label} ...")
     datagen = ImageDataGenerator(rescale=1/255, validation_split=0.2, dtype="float32") 
 
     # training data 

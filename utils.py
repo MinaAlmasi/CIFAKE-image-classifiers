@@ -15,7 +15,7 @@ def input_parse():
 
     # add arguments 
     parser.add_argument("-data", "--data_label", help = "'FAKE' or 'REAL' to indicate which dataset you want to run the model training on", type = str, default="FAKE")
-    parser.add_argument("-epochs", "--n_epochs", help = "number of epochs the model is run for", type = int, default=10)
+    parser.add_argument("-epochs", "--n_epochs", help = "number of epochs the model is run for", type = int, default=20)
 
     # save arguments to be parsed from the CLI
     args = parser.parse_args()

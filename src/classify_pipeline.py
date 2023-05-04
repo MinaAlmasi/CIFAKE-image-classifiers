@@ -27,6 +27,13 @@ import sys, pathlib
 sys.path.append(str(pathlib.Path(__file__).parents[1]))
 from utils import custom_logger
 
+# plotting 
+import matplotlib.pyplot as plt 
+import numpy as np
+
+# evaluation
+from sklearn import metrics
+
 # functions
 def clf_save_model_card(model, savepath:str, filename): # adapted from prev. assignment
     '''
@@ -160,7 +167,7 @@ def clf_get_metrics(model, test_data):
         - model_metrics: classification report containing information such as accuracy, F1, precision and recall 
     '''
     # make predictions
-    predictions = model.predict(test_data)
+    predictions = model.predict(test_data, use_multiprocessing=True)
 
     # extract true test vals
     y_test = test_data.classes
@@ -172,7 +179,7 @@ def clf_get_metrics(model, test_data):
     class_names = test_data.class_indices.keys()
 
     # evaluate predictions
-    model_metrics = classification_report(y_test, y_pred, target_names = class_names)
+    model_metrics = metrics.classification_report(y_test, y_pred, target_names = class_names)
 
     return model_metrics
 
@@ -195,18 +202,21 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs:int, early_stop_
     logging.info("Training model")
     model_history = clf_train(model, train_data, val_data, epochs, early_stop_epochs=early_stop_epochs)
 
+    # get number of epochs that the model actually trained for (if early_stop has occured)
+    actual_epochs = len(model_history.history['loss'])
+
     # save model history 
     with open(resultspath / f"{model_name}_history.pickle", 'wb') as file:
         pickle.dump(model_history.history, file)
 
     # save model 
-    model.save(modelpath / f"{model_name}_model_{epochs}e.h5")
+    model.save(modelpath / f"{model_name}_model_{actual_epochs}e.h5")
 
     # save model card
     clf_save_model_card(model, modelpath, f"{model_name}_model_card.txt") # save model card 
 
     # save plot history and history object 
-    clf_plot_history(model_history, n_epochs, resultspath, f"{model_name}_hist_{epochs}e.png")
+    clf_plot_history(model_history, actual_epochs, resultspath, f"{model_name}_hist_{actual_epochs}e.png")
 
     # evaluate model
     logging.info("Evaluating model")
@@ -215,5 +225,5 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs:int, early_stop_
     # save metrics 
     logging.info("Classification pipeline complete. Saving model")
 
-    with open(resultspath / f"{model_name}_metrics_{n_epochs}e.txt", "w") as file: 
+    with open(resultspath / f"{model_name}_metrics_{actual_epochs}e.txt", "w") as file: 
         file.write(metrics)
