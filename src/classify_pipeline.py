@@ -19,6 +19,9 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.optimizers import SGD
 
+# saving 
+import pickle 
+
 # logging 
 import sys, pathlib
 sys.path.append(str(pathlib.Path(__file__).parents[1]))
@@ -193,8 +196,8 @@ def clf_pipeline(model, train_data, val_data, test_data, epochs:int, early_stop_
     model_history = clf_train(model, train_data, val_data, epochs, early_stop_epochs=early_stop_epochs)
 
     # save model history 
-    with open(resultspath / f"{model_name}_hist_{n_epochs}_epochs.png", 'wb') as file:
-        pickle.dump(model_hist.history, file)
+    with open(resultspath / f"{model_name}_history.pickle", 'wb') as file:
+        pickle.dump(model_history.history, file)
 
     # save model 
     model.save(modelpath / f"{model_name}_model_{epochs}e.h5")
