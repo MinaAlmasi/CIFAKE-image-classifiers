@@ -87,7 +87,7 @@ def main():
 
     # intialize model
     logging.info("Intializing model")
-    model = vgg16()
+    model = cnn_vgg16()
 
     # train pipeline 
     clf_pipeline(
