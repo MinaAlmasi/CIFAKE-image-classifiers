@@ -9,14 +9,17 @@ python src/metadata.py
 
 # run simple neural network 
 echo -e "\n [INFO:] Running classification pipeline with simple neural network ..." # user msg 
-python src/classify_NN.py
+python src/classify_NN.py -data FAKE
+python src/classify_NN.py -data REAÆ
 
 # run LeNet CNN
 echo -e "\n [INFO:] Running classification pipeline with LeNet CNN ..." # user msg 
-python src/classify_LeNet.py
+python src/classify_LeNet.py -data FAKE
+python src/classify_LeNet.py -data REAL
 
 echo -e "\n [INFO:] Running classification pipeline with VGG16 CNN ..." # user msg 
-python src/classify_VGG16.py
+python src/classify_VGG16.py -data FAKE 
+python src/classify_VGG16.py -data REAL 
 
 # deactivate virtual environment
 deactivate
