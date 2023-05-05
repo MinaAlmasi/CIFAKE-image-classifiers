@@ -4,8 +4,9 @@
 source ./env/bin/activate
 
 # run simple neural network 
-echo -e "\n [INFO:] Running classification pipeline with simple neural network ..." # user msg 
-python src/classify_NN.py -data REAL
+echo -e "\n [INFO:] Running classification pipeline with LeNet CNN ..." # user msg 
+python src/classify_LeNet.py -data REAL
+python src/classify_LeNet.py 
 
 # deactivate virtual environment
 deactivate
