@@ -192,8 +192,10 @@ def create_metrics_dataframes(resultspath):
         - metrics_dfs: dictionary containing all txt files in path 
     '''
 
-    # define empty dictionary where dataframes will be saved
+    # empty dictionary where dataframes will be saved
     metrics_dfs = {}
+
+    # empty list for number of epochs from filename
     epochs = []
 
     for file in resultspath.iterdir(): 
@@ -209,24 +211,33 @@ def create_metrics_dataframes(resultspath):
             for epoch in re.findall(r'\d+(?=e\.txt)', file.name):
                 epochs.append(epoch)
 
-    # append epochs to metrics_dfs
-    metrics_dfs["epochs"] = epochs
+    return metrics_dfs, epochs
 
-    return metrics_dfs
-
-def create_table(data_dict, metric:str="f1-score"): 
+def create_table(data:dict, epochs:list, metric:str="f1-score"): 
     # get header for table   
-    header_labels = data_dict["REAL_VGG16"]["class"].tolist()
+    header_labels = data["REAL_VGG16"]["class"].tolist() + ["epochs"]
+
+    # Capitalize header_labels
+    header_labels = [header.title() for header in header_labels]
+
+    # define empty list for nicely formatted table data
+    tabledata = []
+
+    for key, value in data.items():
+        # create name 
+        modelname = re.sub("_", " ", key)
+
+        # create table row with model name and chosen metric
+        tablerow = [modelname] + [str(value) for value in value[metric]] 
+
+        # append epoch value to tablerow for each model
+        tablerow.append(str(epochs.pop(0)))
+
+        # append tablerrow to tabledata
+        tabledata.append(tablerow)
 
     # create table 
-    table = tabulate(
-        [["REAL NN"] + data_dict["REAL_NN"][metric].tolist(),  
-        ["FAKE NN"] + data_dict["FAKE_NN"][metric].tolist(),   
-        ["REAL LeNet"] + data_dict["REAL_LeNet"][metric].tolist(),   
-        ["Fake LeNet"] + data_dict["FAKE_LeNet"][metric].tolist(),   
-        ["REAL VGG16"] + data_dict["REAL_VGG16"][metric].tolist(),
-        ["FAKE VGG16"] + data_dict["FAKE_VGG16"][metric].tolist()
-        ], 
+    table = tabulate(tabledata,
         headers = header_labels, 
         tablefmt="github"
     )
@@ -247,13 +258,15 @@ def main():
         plot_histories(history_objects[f"REAL_{model}"], history_objects[f"FAKE_{model}"], [f"REAL {model}", f"FAKE {model}"], savepath, f"{model}_histories.png")
 
     
-
     # get dataframes
-    metrics_data = create_metrics_dataframes(resultspath)
-    print(metrics_data["REAL_VGG16"])
+    metrics_data, epochs = create_metrics_dataframes(resultspath)
 
-    print(create_table(metrics_data))
+    # turn dataframes into table 
+    metrics_table = create_table(metrics_data, epochs)
 
-
+    # save metrics_table
+    with open(savepath/"all_metrics_table.txt", 'w') as file:
+        file.write(metrics_table)
+    
 if __name__ == "__main__":
     main()
