@@ -257,7 +257,6 @@ def main():
     for model in ["NN", "LeNet", "VGG16"]:
         plot_histories(history_objects[f"REAL_{model}"], history_objects[f"FAKE_{model}"], [f"REAL {model}", f"FAKE {model}"], savepath, f"{model}_histories.png")
 
-    
     # get dataframes
     metrics_data, epochs = create_metrics_dataframes(resultspath)
 
