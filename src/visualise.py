@@ -18,7 +18,9 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 # table 
+import pandas as pd
 from tabulate import tabulate 
+
 
 def load_model_histories(resultspath):
     '''
@@ -192,6 +194,7 @@ def create_metrics_dataframes(resultspath):
 
     # define empty dictionary where dataframes will be saved
     metrics_dfs = {}
+    epochs = []
 
     for file in resultspath.iterdir(): 
         if "metrics" in file.name: # only work on all files which have "metrics in their name"
@@ -201,6 +204,13 @@ def create_metrics_dataframes(resultspath):
             metrics_name = re.sub("_metrics_\d+e.txt", "", file.name)
             # add to metrics_dfs dict ! 
             metrics_dfs[metrics_name] = metrics_data
+        
+            # get number of epochs from file name 
+            for epoch in re.findall(r'\d+(?=e\.txt)', file.name):
+                epochs.append(epoch)
+
+    # append epochs to metrics_dfs
+    metrics_dfs["epochs"] = epochs
 
     return metrics_dfs
 
@@ -210,11 +220,13 @@ def create_table(data_dict, metric:str="f1-score"):
 
     # create table 
     table = tabulate(
-        [["REAL NN"] + data_dict["REAL_NN"][metric].tolist(),   
+        [["REAL NN"] + data_dict["REAL_NN"][metric].tolist(),  
         ["FAKE NN"] + data_dict["FAKE_NN"][metric].tolist(),   
         ["REAL LeNet"] + data_dict["REAL_LeNet"][metric].tolist(),   
         ["Fake LeNet"] + data_dict["FAKE_LeNet"][metric].tolist(),   
-        ["REAL VGG16"] + data_dict["REAL_VGG16"][metric].tolist()], 
+        ["REAL VGG16"] + data_dict["REAL_VGG16"][metric].tolist(),
+        ["FAKE VGG16"] + data_dict["FAKE_VGG16"][metric].tolist()
+        ], 
         headers = header_labels, 
         tablefmt="github"
     )
@@ -236,6 +248,11 @@ def main():
 
     
 
+    # get dataframes
+    metrics_data = create_metrics_dataframes(resultspath)
+    print(metrics_data["REAL_VGG16"])
+
+    print(create_table(metrics_data))
 
 
 if __name__ == "__main__":
