@@ -137,7 +137,6 @@ def plot_histories(history1:dict, history2:dict, row_headers:list, savepath:str,
     # save fig 
     fig.savefig(savepath / filename, dpi=300)
 
-
 def main(): 
     path = pathlib.Path(__file__)
 
@@ -145,10 +144,12 @@ def main():
     savepath = path.parents[1] / "test"
     savepath.mkdir(exist_ok=True)
 
+    # create history plots for real and fake data
     history_objects = load_model_histories(resultspath)
-
     for model in ["NN", "LeNet", "VGG16"]:
         plot_histories(history_objects[f"REAL_{model}"], history_objects[f"FAKE_{model}"], [f"REAL {model}", f"FAKE {model}"], savepath, f"{model}_histories.png")
+
+
 
 
 if __name__ == "__main__":
