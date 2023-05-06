@@ -53,7 +53,7 @@ The repository is structured as such:
 </p>
 
 
-### Evaluation Metrics 
+### Evaluation Metrics: F1-score and Accuracy 
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
 | REAL VGG16 |       0.65 |         0.69 |   0.52 |  0.48 |   0.54 |  0.57 |   0.67 |    0.65 |   0.72 |    0.68 |       0.62 |        0.62 |           0.62 |       10 |
@@ -62,6 +62,9 @@ The repository is structured as such:
 | REAL LeNet |       0.68 |         0.75 |   0.47 |  0.48 |   0.58 |  0.48 |   0.72 |    0.71 |   0.74 |    0.69 |       0.63 |        0.63 |           0.63 |       18 |
 | REAL NN    |       0.36 |         0.45 |   0.29 |  0.21 |   0.32 |  0.34 |   0.36 |    0.41 |   0.46 |    0.46 |       0.37 |        0.37 |           0.37 |       20 |
 | FAKE NN    |       0.55 |         0.74 |   0.58 |  0.52 |   0.67 |  0.43 |   0.55 |    0.55 |   0.61 |    0.63 |       0.59 |        0.58 |           0.58 |       20 |
+
+For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```X``` folder. 
+
 
 ## Author 
 This repository was created by Mina Almasi:
