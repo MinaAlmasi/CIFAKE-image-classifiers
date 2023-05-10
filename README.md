@@ -16,7 +16,7 @@ The ```CIFAKE``` dataset contains 60,000 images that are synthetically generated
 ## Experimental Pipeline and Motivation
 The first step when investigating any cultural project with image analysis is to acquire the data needed to answer our questions. However, in problems such as classification which require an abundance of data, this can become problematic if access to data is limited. This is usually approached by **data augmentation** which refers to the creation of new, slightly modified versions of existing data (e.g., by rotating, cropping, flipping the images). With the emergence of generative image models, it is relevant to explore the utility of artificially generated images as an alternative to data augmentation. 
 
-Therefore, this project concretely aims to assess whether the ```CIFAKE``` artificial images can be used to train classifiers that perform would also perform well on the CIFAR-10 images. 
+Therefore, this project concretely aims to assess whether the ```CIFAKE``` artificial images can be used to train classifiers that would also perform well on the CIFAR-10 images. 
 
 For this purpose, two experiments are conducted:
 
