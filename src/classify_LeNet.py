@@ -81,7 +81,7 @@ def main():
     meta_dict = load_metadata(metadatapath)
 
     # intialise datagenerator
-    logging.info(f"Loading metadatadata {args.data_label} ...")
+    logging.info(f"Loading data {args.data_label} ...")
     datagen = ImageDataGenerator(rescale=1/255, validation_split=0.2, dtype="float32") 
 
     # training data 
@@ -97,7 +97,7 @@ def main():
     logging.info("Intializing model ...")
     model = cnn_lenet()
 
-    # train pipeline 
+    # train, evaluate pipeline 
     clf_pipeline(
         model = model, 
         train_data = train, 

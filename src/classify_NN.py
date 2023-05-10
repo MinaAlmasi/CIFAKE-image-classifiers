@@ -86,7 +86,7 @@ def main():
     logging.info("Intializing model ...")
     model = simple_neural_network()
 
-    # train pipeline 
+    # train, evaluate pipeline 
     clf_pipeline(
         model = model, 
         train_data = train, 
