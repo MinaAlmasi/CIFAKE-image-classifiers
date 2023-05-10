@@ -18,6 +18,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from modules.load_data import load_metadata, load_tf_data
 from modules.classify_pipeline import clf_get_metrics
 from modules.utils import custom_logger
+from visualise import create_metrics_dataframes, create_table
 
 def evaluate(modelpath, modelname, test_data):
     # load model 
@@ -40,6 +41,7 @@ def main():
 
     # resultspath 
     resultspath = path.parents[1] / "final_evaluate_results"
+    resultspath.mkdir(exist_ok=True, parents=True)
 
     # model paths 
     LeNet_modelpath = path.parents[1] / "models" / "LeNet_model"
@@ -57,21 +59,33 @@ def main():
     test = load_tf_data(datagen, meta_dict["test"], "rgb", "filepath", "label", (32, 32), 64, shuffle=False)
 
     # load models
-    FAKE_VGG16 = keras.models.load_model(LeNet_modelpath / "FAKE_LeNet_model_11e.h5")
-    FAKE_LeNet = keras.models.load_model(LeNet_modelpath / "FAKE_VGG16_model_11e.h5")
+    FAKE_LeNet = keras.models.load_model(LeNet_modelpath / "FAKE_LeNet_model_11e.h5")
+    FAKE_VGG16 = keras.models.load_model(VGG16_modelpath / "FAKE_VGG16_model_13e.h5")
 
     ## get metrics 
-    metrics_VGG16 = clf_get_metrics(FAKE_VGG16, test)
     metrics_LeNet = clf_get_metrics(FAKE_LeNet, test)
+    metrics_VGG16 = clf_get_metrics(FAKE_VGG16, test)
 
     # save metrics
-    for model, metrics in {VGG16: metrics_VGG16, LeNet: metrics_LeNet}.items(): 
-        with open(resultspath / f"FAKE_{model}_metrics.txt", "w") as file: 
+    for model, metrics in {"LeNet_11e": metrics_LeNet, "VGG16_18e": metrics_VGG16}.items(): 
+        file_name = model.split("_")
+        with open(resultspath / f"FAKE_{file_name[0]}_metrics_{file_name[1]}.txt", "w") as file: 
             file.write(metrics)
     
     # make metrics into dataframes
-    
+    metrics_data, epochs = create_metrics_dataframes(resultspath)
 
+    # define epochs 
+    header_labels = metrics_data["FAKE_VGG16"]["class"].tolist() + ["epochs"]
+
+    # turn dataframes into table 
+    metrics_table = create_table(metrics_data, epochs, header_labels)
+
+    print(metrics_table)
+
+    # save metrics_table
+    with open(resultspath /"FAKE_metrics_table.txt", 'w') as file:
+        file.write(metrics_table)
 
 if __name__ == "__main__":
     main()

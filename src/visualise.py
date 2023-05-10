@@ -216,10 +216,7 @@ def create_metrics_dataframes(resultspath):
 
     return metrics_dfs, epochs
 
-def create_table(data:dict, epochs:list, metric:str="f1-score"): 
-    # get header for table   
-    header_labels = data["REAL_VGG16"]["class"].tolist() + ["epochs"]
-
+def create_table(data:dict, epochs:list, header_labels:list, metric:str="f1-score"): 
     # Capitalize header_labels
     header_labels = [header.title() for header in header_labels]
 
@@ -263,8 +260,11 @@ def main():
     # get dataframes
     metrics_data, epochs = create_metrics_dataframes(resultspath)
 
+    # get header for table   
+    header_labels = metrics_data["REAL_VGG16"]["class"].tolist() + ["epochs"]
+
     # turn dataframes into table 
-    metrics_table = create_table(metrics_data, epochs)
+    metrics_table = create_table(metrics_data, header_labels, epochs)
 
     # save metrics_table
     with open(savepath/"all_metrics_table.txt", 'w') as file:

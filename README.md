@@ -1,5 +1,5 @@
 # CIFAKE: Comparing classifiers on FAKE vs. REAL image data
-This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. The assignment description can be found here. All code is written by Mina Almasi (202005465) although some code may be adapted from classwork (see also [Code Reuse](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#code-reuse)).
+This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. All code is written by Mina Almasi (202005465) although some code may be adapted from classwork or external tutorials (see also [Code Reuse](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#code-reuse)).
 
 The repository aims to investigate the utility of artificially generated images as an alternative to data augmentation when training classifiers to predict real life images. For this purpose, the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset (Bird & Lofti, 2023) is used. 
 
@@ -13,21 +13,29 @@ The ```CIFAKE``` dataset contains 60,000 images that are synthetically generated
 
 *Figure by Bird & Lofti (2023)*
 
-## Experimental pipeline and Motivation
-The evaluation of artificial (```FAKE```) images is achieved with the following pipeline by training six classifiers. 
+## Experimental Pipeline and Motivation
+The first step when investigating any cultural project with image analysis is to acquire the data needed to answer our questions. However, in problems such as classification which require an abundance of data, this can become problematic if access to data is limited. This is usually approached by **data augmentation** which refers to the creation of new, slightly modified versions of existing data (e.g., by rotating, cropping, flipping the images). With the emergence of generative image models, it is relevant to explore the utility of artificially generated images as an alternative to data augmentation. 
 
-1. Train three classifiers in increasing complexity on the ```FAKE```
+Therefore, this project concretely aims to assess whether the ```CIFAKE``` artificial images can be used to train classifiers that perform would also perform well on the CIFAR-10 images. 
+
+For this purpose, two experiments are conducted:
+
+###  ```(E1)```
+In experiment 1, three classifiers will be trained for each dataset (```FAKE``` and ```REAL``` ) seperately using TensorFlow. These classifiers increase in complexity:
+
+1. Simple Neural Network 
+2. CNN with the LeNet Architecture (See also [Wiki/LeNet](https://en.wikipedia.org/wiki/LeNet))
+3. Pre-trained VGG-16. 
 
 
-2. Testing the best ```Fake``` classifier 
-
+### ```(E2)```
+In experiment 2, the best performing ```FAKE``` classifier will be evaluated on the ```REAL``` test dataset to see whether its performance transfers across datasets. 
 
 
 ## Reproducibility 
 To reproduce the results, follow the instructions in the [Pipeline](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#pipeline) section. 
 
-NB! Be aware that training the model is computationally heavy. Cloud computing (e.g., UCloud) with high amounts of ram (or a good GPU) is encouraged.
-
+NB! Be aware that training the model is computationally heavy. Cloud computing (e.g., [UCloud]([UCloud](https://cloud.sdu.dk/))) with high amounts of ram (or a good GPU) is encouraged.
 
 ## Project Structure
 The repository is structured as such: 
@@ -51,7 +59,7 @@ bash run.sh
 
 
 ## Results 
-### Loss Curves
+### (```E1```) Loss Curves
 #### Neural Network
 <p align="left">
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/visualisations/NN_histories.png">
@@ -68,7 +76,7 @@ bash run.sh
 </p>
 
 
-### Evaluation Metrics: F1-score and Accuracy 
+### (```E1```)  Evaluation Metrics: F1-score and Accuracy 
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
 | REAL VGG16 |       0.65 |         0.69 |   0.52 |  0.48 |   0.54 |  0.57 |   0.67 |    0.65 |   0.72 |    0.68 |       0.62 |        0.62 |           0.62 |       10 |
@@ -80,6 +88,13 @@ bash run.sh
 
 For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```X``` folder. 
 
+### (```E2```) Evaluating ```FAKE``` Classifiers on ```REAL``` Test Data
+The two best performing ```FAKE``` classifiers were evaluated on the CIFAR-10 test dataset.  
+|            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
+|------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
+| FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |   0.3 |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
+| FAKE VGG16 |       0.01 |         0    |   0.21 |  0    |   0    |   0   |   0    |    0    |   0.18 |    0.05 |       0.11 |        0.04 |           0.04 |       18 |
+
 
 ## Author 
 This repository was created by Mina Almasi:
@@ -89,7 +104,7 @@ This repository was created by Mina Almasi:
 * mail: mina.almasi@post.au.dk
 
 ### Code Reuse 
-Write text here 
+Some code was either developed in class or adapted from previous class work **and/or** external tutorials. Whenever this is the case, it will be stated in the particular scripts as a #comment or in the script docstring. 
 
 ## References
 Krizhevsky, A. (2009). Learning Multiple Layers of Features from Tiny Images. 
