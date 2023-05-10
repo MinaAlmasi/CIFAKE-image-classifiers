@@ -1,15 +1,17 @@
 # CIFAKE: Comparing classifiers on FAKE vs. REAL image data
-This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. The assignment description can be found here. All code is written by Mina Almasi (202005465) although some code may be adapted from classwork (see also [Code Reuse]()).
+This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. The assignment description can be found here. All code is written by Mina Almasi (202005465) although some code may be adapted from classwork (see also [Code Reuse](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#code-reuse)).
 
-The repository aims to investigate the usefulness of artificially generated images when training classifiers. For this purpose, the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset (Bird & Lofti, 2023) is used. 
+The repository aims to investigate the utility of artificially generated images as an alternative to data augmentation when training classifiers to predict real life images. For this purpose, the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset (Bird & Lofti, 2023) is used. 
 
 
 ## Data 
-The ```CIFAKE``` dataset contains 60,000 images that are synthetically generated to be equivalent to the ```CIFAR-10 dataset``` (Krizhevsky, 2009) along with 60,000 original CIFAR-10 images: 
+The ```CIFAKE``` dataset contains 60,000 images that are synthetically generated to be equivalent to the ```CIFAR-10 dataset``` (Krizhevsky, 2009) along with 60,000 original CIFAR-10 images. The synthetically generated images were created using the text-to-image [Stable Diffusion v1-4](https://huggingface.co/CompVis/stable-diffusion-v1-4). Examples of these images are shown below.
 
 <p align="center">
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/docs/CIFAKE-dataset.png">
 </p>
+
+*Figure by Bird & Lofti (2023)*
 
 ## Experimental pipeline and Motivation
 The evaluation of artificial (```FAKE```) images is achieved with the following pipeline by training six classifiers. 
@@ -22,7 +24,7 @@ The evaluation of artificial (```FAKE```) images is achieved with the following 
 
 
 ## Reproducibility 
-To reproduce the results, follow the instructions in the [Pipeline]() section. 
+To reproduce the results, follow the instructions in the [Pipeline](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#pipeline) section. 
 
 NB! Be aware that training the model is computationally heavy. Cloud computing (e.g., UCloud) with high amounts of ram (or a good GPU) is encouraged.
 
@@ -34,6 +36,19 @@ The repository is structured as such:
 ```
 
 ## Pipeline 
+### Setup
+Prior to running the pipeline, please firstly install the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset from Kaggle. 
+
+Secondly, create a virtual environment (```env```) and install necessary requirements by running: 
+```
+bash setup.sh
+```
+### Running Experimental Pipeline
+To run the entire experimental pipeline, type the following in the terminal:
+```
+bash run.sh
+```
+
 
 ## Results 
 ### Loss Curves
