@@ -1,5 +1,12 @@
 '''
+Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
+
 Create metadata for CIFAKE data containing file names, file paths and classes. 
+
+Run the script in the terminal by typing: 
+    python src/create_metadata.py
+
+@MinaAlmasi
 '''
 
 # utils 

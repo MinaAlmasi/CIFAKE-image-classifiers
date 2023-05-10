@@ -5,6 +5,9 @@ Script to create plots and table displayed in README. Concretely, the script con
 1. Visualise the training histories of two models side by side, thereby creating three plots, one for each model (NN, LeNet, VGG16).
 2. Create dataframes from metrics .txt files and from those dataframes creates an overview table displaying all F1 scores 
 
+Run script in the terminal by typing: 
+    python src/visualise.py
+
 @MinaAlmasi
 '''
 

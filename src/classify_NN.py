@@ -2,6 +2,12 @@
 Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
 
 Classify CIFAKE dataset using a simple neural network
+
+Run in the terminal by typing: 
+    python src/classify_NN.py -d data_label
+
+Where the -d which dataset (FAKE or REAL) the model should train on.
+
 '''
 
 import pathlib

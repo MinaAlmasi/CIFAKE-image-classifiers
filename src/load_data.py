@@ -1,4 +1,11 @@
-'''Load and preprocess data'''
+'''
+Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
+
+Script comprising of functions to load and preprocess CIFAKE image data from the metadata made from create_metadata.py. 
+Used in classify_X.py scripts. 
+
+@MinaAlmasi
+'''
 
 # data wrangling 
 import pandas as pd

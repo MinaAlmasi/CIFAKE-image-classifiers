@@ -2,6 +2,11 @@
 Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
 
 Classify CIFAKE dataset using a CNN with the LeNet architecture
+
+Run in the terminal by typing: 
+    python src/classify_LeNet.py -d data_label
+
+Where the -d which dataset (FAKE or REAL) the model should train on.
 '''
 
 import pathlib

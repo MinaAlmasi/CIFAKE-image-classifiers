@@ -1,7 +1,14 @@
 '''
 Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
 
-Classify CIFAKE dataset using the pre-trained CNN VGG16
+Classify CIFAKE dataset using the pre-trained CNN VGG16. 
+
+Run in the terminal by typing: 
+    python src/classify_VGG16.py -d data_label
+
+Where the -d which dataset (FAKE or REAL) the model should train on.
+
+@MinaAlmasi
 '''
 
 import pathlib
