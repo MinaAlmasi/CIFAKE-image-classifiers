@@ -10,7 +10,7 @@ python src/metadata.py
 # run simple neural network 
 echo -e "\n [INFO:] Running classification pipeline with simple neural network ..." # user msg 
 python src/classify_NN.py -data FAKE
-python src/classify_NN.py -data REAÆ
+python src/classify_NN.py -data REAL
 
 # run LeNet CNN
 echo -e "\n [INFO:] Running classification pipeline with LeNet CNN ..." # user msg 
