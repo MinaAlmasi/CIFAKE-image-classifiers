@@ -4,14 +4,13 @@ Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, 
 Classify CIFAKE dataset using a CNN with the LeNet architecture
 
 Run in the terminal by typing: 
-    python src/classify_LeNet.py -d data_label
+    python src/classify_LeNet.py -data 'data_label'
 
 Where the -d which dataset (FAKE or REAL) the model should train on.
 '''
 
+# utils
 import pathlib
-import sys
-sys.path.append(str(pathlib.Path(__file__).parents[1]))
 
 # image import 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -21,9 +20,9 @@ from tensorflow.keras.models import Sequential # model
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense #layers 
 
 # custom modules
-from load_data import load_metadata, load_tf_data
-from classify_pipeline import clf_pipeline
-from utils import custom_logger, input_parse
+from modules.load_data import load_metadata, load_tf_data
+from modules.classify_pipeline import clf_pipeline
+from modules.utils import custom_logger, input_parse
 
 def cnn_lenet(input_shape:tuple=(32, 32, 3), output_layer_size:int=10):  # adapted from class notebook
     '''

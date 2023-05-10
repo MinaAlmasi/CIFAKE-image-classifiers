@@ -4,16 +4,15 @@ Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, 
 Classify CIFAKE dataset using the pre-trained CNN VGG16. 
 
 Run in the terminal by typing: 
-    python src/classify_VGG16.py -d data_label
+    python src/classify_VGG16.py -data 'data_label'
 
 Where the -d which dataset (FAKE or REAL) the model should train on.
 
 @MinaAlmasi
 '''
 
+# utils
 import pathlib
-import sys
-sys.path.append(str(pathlib.Path(__file__).parents[1]))
 
 # image import 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -25,9 +24,9 @@ from tensorflow.keras.layers import Dense, Flatten # layers
 from tensorflow.keras.models import Model # generic model object 
 
 # custom modules
-from load_data import load_metadata, load_tf_data
-from classify_pipeline import clf_pipeline
-from utils import custom_logger, input_parse
+from modules.load_data import load_metadata, load_tf_data
+from modules.classify_pipeline import clf_pipeline
+from modules.utils import custom_logger, input_parse
 
 def cnn_vgg16(input_shape:tuple=(32, 32, 3), output_layer_size:int=10): 
     '''

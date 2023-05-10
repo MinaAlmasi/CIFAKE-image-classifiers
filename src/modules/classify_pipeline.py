@@ -25,7 +25,7 @@ import pickle
 # logging 
 import sys, pathlib
 sys.path.append(str(pathlib.Path(__file__).parents[1]))
-from utils import custom_logger
+from modules.utils import custom_logger
 
 # plotting 
 import matplotlib.pyplot as plt 

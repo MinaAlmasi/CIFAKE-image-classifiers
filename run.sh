@@ -5,7 +5,7 @@ source ./env/bin/activate
 
 # preprocess data 
 echo -e "\n [INFO:] Create metadata ..." # user msg 
-python3.9 src/metadata.py
+python3.9 src/create_metadata.py
 
 # run simple neural network 
 echo -e "\n [INFO:] Running classification pipeline with simple neural network ..." # user msg 
@@ -15,7 +15,7 @@ python3.9 src/classify_NN.py -data REAL
 # run LeNet CNN
 echo -e "\n [INFO:] Running classification pipeline with LeNet CNN ..." # user msg 
 python3.9 src/classify_LeNet.py -data FAKE
-python src/classify_LeNet.py -data REAL
+python3.9 src/classify_LeNet.py -data REAL
 
 # run VGG16
 echo -e "\n [INFO:] Running classification pipeline with VGG16 CNN ..." # user msg 
