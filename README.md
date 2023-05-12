@@ -90,7 +90,7 @@ For the loss and accuracy curves below, it is worth noting that the six models h
 In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16```that shows signs of overfitting with the training loss continously dropping while validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th epoch), it is less prominent.  
 
 ### (```E1```)  Evaluation Metrics: F1-score
-The F1 score for all models is shown in the table below. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
+The F1 score (and the single ```Accuracy``` score) for all models is shown in the table below. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
 
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
@@ -101,7 +101,7 @@ The F1 score for all models is shown in the table below. For precision and recal
 | REAL NN    |       0.36 |         0.45 |   0.29 |  0.21 |   0.32 |  0.34 |   0.36 |    0.41 |   0.46 |    0.46 |       0.37 |        0.37 |           0.37 |       20 |
 | FAKE NN    |       0.55 |         0.74 |   0.58 |  0.52 |   0.67 |  0.43 |   0.55 |    0.55 |   0.61 |    0.63 |       0.59 |        0.58 |           0.58 |       20 |
 
-In general, accuracies are higher for the ```FAKE``` dataset. It may be that the dataset is less complex/noisy.
+In general, macro averages (F1) are higher for the ```FAKE``` dataset. It may be that the dataset is less complex/noisy.
 
 ### (```E2```) Evaluating ```FAKE``` Classifiers on ```REAL``` Test Data
 Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performed similarly, both are evaluated on the ```REAL``` CIFAR-10 test dataset. The table below shows the F1-scores: 
@@ -111,7 +111,7 @@ Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performe
 | FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |  0.3  |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
 | FAKE VGG16 |       0.46 |         0.44 |   0.37 |  0.34 |   0.37 |  0.39 |   0.17 |    0.48 |   0.57 |    0.53 |       0.42 |        0.41 |           0.41 |       18 |
 
-Interestingly, the ```FAKE VGG16```  (```F1 = 0.42```) tested on the ```REAL``` data outperforms the ```REAL NN``` (```F1 = 0.37```) when looking at overall F1 score. This performance is surprising, considering the loss curves of ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. Although the ```FAKE``` models do not outperform the other real models (```REAL LeNet```and ```REAL VGG16```), their performance being well above chance level for most classes is quite significant and looks promising for the use of artificial images as an alternative to data augmentation.
+Interestingly, the ```FAKE VGG16```  (```macro_avg = 0.42```) tested on the ```REAL``` data outperforms the ```REAL NN``` (```macro_avg = 0.37```) when looking at overall F1 score. This performance is surprising, considering the loss curves of ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. Although the ```FAKE``` models do not outperform the other real models (```REAL LeNet```and ```REAL VGG16```), their performance being well above chance level for most classes is quite significant and looks promising for the use of artificial images as an alternative to data augmentation.
 
 
 ## Author 
