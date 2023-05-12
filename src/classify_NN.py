@@ -4,11 +4,15 @@ Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, 
 Classify CIFAKE dataset using a simple neural network
 
 Run in the terminal by typing: 
-    python src/classify_NN.py -data {DATA_LABEL}
+    python src/classify_NN.py -data {DATA_LABEL} -epochs {NUMBER_OF_EPOCHS}
 
-Where the -data refers to which dataset (FAKE or REAL) the model should train on.
+Where:
+-data refers to which dataset (FAKE or REAL) the model should train on
+-epochs refers to the maximum amount of epochs that the model should train for 
 
+@MinaAlmasi
 '''
+
 # utils
 import pathlib
 
