@@ -1,7 +1,10 @@
 '''
 Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, F2023
 
-Evaluating the best FAKE classifiers on the REAL test data
+Evaluating the best FAKE classifiers on the REAL test data.
+
+Run script in the terminal by typing: 
+    python src/visualise.py
 
 @MinaAlmasi
 '''
@@ -18,7 +21,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from modules.load_data import load_metadata, load_tf_data
 from modules.classify_pipeline import clf_get_metrics
 from modules.utils import custom_logger
-from visualise import create_metrics_dataframes, create_table
+from modules.visualisation import create_metrics_dataframes, create_table
 
 def evaluate(modelpath, modelname, test_data):
     # load model 
@@ -40,7 +43,11 @@ def main():
     metadatapath = path.parents[1] / "images" / "metadata" / "REAL" 
 
     # resultspath 
-    resultspath = path.parents[1] / "final_evaluate_results"
+    resultspath = path.parents[1] / "E2_results"
+    resultspath.mkdir(exist_ok=True, parents=True)
+
+    # save path for visualisations
+    resultspath = path.parents[1] / "E2_visualisations"
     resultspath.mkdir(exist_ok=True, parents=True)
 
     # model paths 

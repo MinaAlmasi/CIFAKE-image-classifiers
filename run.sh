@@ -25,6 +25,9 @@ python3.9 src/classify_VGG16.py -data REAL
 # run visualisation
 python3.9 src/visualise.py 
 
+# eval best classifiers on REAL test data 
+python3.9 src/final_evaluate.py 
+
 # deactivate virtual environment
 deactivate
 
