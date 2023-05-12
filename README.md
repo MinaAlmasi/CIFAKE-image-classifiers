@@ -67,6 +67,8 @@ bash run.sh
 
 
 ## Results 
+The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``` of the model refers to whether the model has been trained on the ```FAKE``` or ```REAL``` dataset. 
+
 ### (```E1```) Loss Curves
 #### Neural Network
 <p align="left">
@@ -94,9 +96,10 @@ bash run.sh
 | REAL NN    |       0.36 |         0.45 |   0.29 |  0.21 |   0.32 |  0.34 |   0.36 |    0.41 |   0.46 |    0.46 |       0.37 |        0.37 |           0.37 |       20 |
 | FAKE NN    |       0.55 |         0.74 |   0.58 |  0.52 |   0.67 |  0.43 |   0.55 |    0.55 |   0.61 |    0.63 |       0.59 |        0.58 |           0.58 |       20 |
 
-For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```X``` folder. 
+For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
 
 ### (```E2```) Evaluating ```FAKE``` Classifiers on ```REAL``` Test Data
+Since both the ```FAKE LeNet (F1 = 0.84)``` and  
 The two best performing ```FAKE``` classifiers were evaluated on the CIFAR-10 test dataset.  
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
