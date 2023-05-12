@@ -28,7 +28,7 @@ In experiment 1, three classifiers will be trained for each dataset (```FAKE``` 
 3. Pre-trained VGG-16. 
 
 
-### ```(E2)``` Testing ```FAKE``` classifiers on ```REAL``` Test Data
+### ```(E2)``` Testing ```FAKE``` Classifiers on ```REAL``` Test Data
 In experiment 2, the best performing ```FAKE``` classifier will be evaluated on the ```REAL``` test dataset to see whether its performance transfers across datasets. 
 
 
@@ -90,6 +90,8 @@ For the loss and accuracy curves below, it is worth noting that the six models h
 In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16```that shows signs of overfitting with the training loss continously dropping while validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th epoch), it is less prominent.  
 
 ### (```E1```)  Evaluation Metrics: F1-score
+The F1 score for all models is shown in the table below. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
+
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
 | REAL VGG16 |       0.65 |         0.69 |   0.52 |  0.48 |   0.54 |  0.57 |   0.67 |    0.65 |   0.72 |    0.68 |       0.62 |        0.62 |           0.62 |       10 |
@@ -98,8 +100,6 @@ In general, the ```LeNet``` and ```NN``` seem to fit well to the data in compari
 | REAL LeNet |       0.68 |         0.75 |   0.47 |  0.48 |   0.58 |  0.48 |   0.72 |    0.71 |   0.74 |    0.69 |       0.63 |        0.63 |           0.63 |       18 |
 | REAL NN    |       0.36 |         0.45 |   0.29 |  0.21 |   0.32 |  0.34 |   0.36 |    0.41 |   0.46 |    0.46 |       0.37 |        0.37 |           0.37 |       20 |
 | FAKE NN    |       0.55 |         0.74 |   0.58 |  0.52 |   0.67 |  0.43 |   0.55 |    0.55 |   0.61 |    0.63 |       0.59 |        0.58 |           0.58 |       20 |
-
-For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
 
 In general, accuracies are higher for the ```FAKE``` dataset. It may be that the dataset is less complex/noisy.
 
@@ -111,7 +111,7 @@ Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performe
 | FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |  0.3  |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
 | FAKE VGG16 |       0.46 |         0.44 |   0.37 |  0.34 |   0.37 |  0.39 |   0.17 |    0.48 |   0.57 |    0.53 |       0.42 |        0.41 |           0.41 |       18 |
 
-Interestingly, although the ```FAKE``` models do not outperform the ```REAL``` models on the ```REAL``` test data, the ```VGG16```performs surprisingly well with (```F1 = 0.42```). This is especially remarkable, considering the loss curves of  ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings for the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. 
+Interestingly, although the ```FAKE``` models do not outperform the ```REAL``` models on the ```REAL``` test data, the ```VGG16```performs surprisingly well in this task (```F1 = 0.42```). This is especially remarkable, considering the loss curves of  ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. 
 
 
 ## Author 
