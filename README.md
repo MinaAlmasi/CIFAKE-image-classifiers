@@ -70,6 +70,8 @@ bash run.sh
 The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``` of the model refers to whether the model has been trained on the ```FAKE``` or ```REAL``` dataset. 
 
 ### (```E1```) Loss and Accuracy Curves
+For the loss and accuracy curves below, it is worth noting that the six models have not run for the same amount of epochs due to a strict early-stopping callback, making the model training stop if the validation accuracy does not improve for more than 2 epochs. 
+
 #### Neural Network
 <p align="left">
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/NN_histories.png">
@@ -85,8 +87,7 @@ The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/VGG16_histories.png">
 </p>
 
-
-
+In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16```that shows signs of overfitting with the training loss continously dropping while validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th epoch), it is less prominent.  
 
 ### (```E1```)  Evaluation Metrics: F1-score
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
@@ -100,12 +101,17 @@ The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``
 
 For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
 
+In general, accuracies are higher for the ```FAKE``` dataset. It may be that the dataset is less complex/noisy.
+
 ### (```E2```) Evaluating ```FAKE``` Classifiers on ```REAL``` Test Data
-Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performed similarly, both are evaluated on the ```REAL```CIFAR-10 test dataset. The table below shows the F1-scores: 
+Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performed similarly, both are evaluated on the ```REAL``` CIFAR-10 test dataset. The table below shows the F1-scores: 
+
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
 | FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |  0.3  |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
 | FAKE VGG16 |       0.46 |         0.44 |   0.37 |  0.34 |   0.37 |  0.39 |   0.17 |    0.48 |   0.57 |    0.53 |       0.42 |        0.41 |           0.41 |       18 |
+
+Interestingly, although the ```FAKE``` models do not outperform the ```REAL``` models on the ```REAL``` test data, the ```VGG16```performs surprisingly well with (```F1 = 0.42```). This is especially remarkable, considering the loss curves of  ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings for the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. 
 
 
 ## Author 
@@ -114,9 +120,6 @@ This repository was created by Mina Almasi:
 * github user: @MinaAlmasi
 * student no: 202005465, AUID: au675000
 * mail: mina.almasi@post.au.dk
-
-### Code Reuse 
-Some code was either developed in class or adapted from previous class work **and/or** external tutorials. Whenever this is the case, it will be stated in the particular scripts as a #comment or in the script docstring. 
 
 ## References
 Krizhevsky, A. (2009). Learning Multiple Layers of Features from Tiny Images. 
