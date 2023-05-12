@@ -5,7 +5,7 @@ The repository aims to investigate the utility of artificially generated images 
 
 
 ## Data 
-The ```CIFAKE``` dataset contains 60,000 images that are synthetically generated to be equivalent to the ```CIFAR-10 dataset``` (Krizhevsky, 2009) along with 60,000 original CIFAR-10 images. The synthetically generated images were created using the text-to-image [Stable Diffusion v1-4](https://huggingface.co/CompVis/stable-diffusion-v1-4). Examples of these images are shown below.
+The ```CIFAKE``` dataset contains 60,000 images that are synthetically generated to be equivalent to the ```CIFAR-10 dataset``` along with 60,000 original CIFAR-10 images (Krizhevsky, 2009). The synthetically generated images were created using the text-to-image [Stable Diffusion v1-4](https://huggingface.co/CompVis/stable-diffusion-v1-4). Examples of these artificial images are shown below.
 
 <p align="center">
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/docs/CIFAKE-dataset.png">
@@ -20,7 +20,7 @@ Therefore, this project concretely aims to assess whether the ```CIFAKE``` artif
 
 For this purpose, two experiments are conducted:
 
-###  ```(E1)```
+###  ```(E1)``` Training Classifiers on ```REAL``` vs ```FAKE``` data
 In experiment 1, three classifiers will be trained for each dataset (```FAKE``` and ```REAL``` ) seperately using TensorFlow. These classifiers increase in complexity:
 
 1. Simple Neural Network 
@@ -28,7 +28,7 @@ In experiment 1, three classifiers will be trained for each dataset (```FAKE``` 
 3. Pre-trained VGG-16. 
 
 
-### ```(E2)```
+### ```(E2)``` Testing ```FAKE``` classifiers on ```REAL``` Test Data
 In experiment 2, the best performing ```FAKE``` classifier will be evaluated on the ```REAL``` test dataset to see whether its performance transfers across datasets. 
 
 
@@ -39,9 +39,17 @@ NB! Be aware that training the model is computationally heavy. Cloud computing (
 
 ## Project Structure
 The repository is structured as such: 
-```
+| <div style="width:120px"></div>| Description |
+|---------|:-----------|
+| ```E1_results``` | Results from experiment 1 (E1): model histories, individual loss/accuracy curves, evaluation metrics |
+| ```E1_visualisations``` | Visualisations made on results from experiment 1 (E1).|
+| ```E2_results``` | Results from experiment 2 (E2): evaluation metrics of the two fake classifiers on the ```REAL``` test data|
+| ```E2_visualisations``` | Visualisations made on results from from experiment 2 (E2).|
+| ```src```  | Scripts for creating metadata for dataset, running classifications, creating visualisations and doing the final evaluation (E2).|
+| ```requirements.txt``` | Necessary packages to be pip installed|
+| ```setup.sh``` | Run to install ```requirements.txt``` within newly created ```env``` |
+| ```run.sh``` | Run to reproduce entire pipeline including creating metadata, running classifications, evaluating classifiers, making visualisations.|
 
-```
 
 ## Pipeline 
 ### Setup
