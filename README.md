@@ -111,7 +111,7 @@ Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performe
 | FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |  0.3  |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
 | FAKE VGG16 |       0.46 |         0.44 |   0.37 |  0.34 |   0.37 |  0.39 |   0.17 |    0.48 |   0.57 |    0.53 |       0.42 |        0.41 |           0.41 |       18 |
 
-Interestingly, although the ```FAKE``` models do not outperform the ```REAL``` models on the ```REAL``` test data, the ```VGG16```performs surprisingly well in this task (```F1 = 0.42```). This is especially remarkable, considering the loss curves of  ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. 
+Interestingly, the ```FAKE VGG16```  (```F1 = 0.42```) tested on the ```REAL``` data outperforms the ```REAL NN``` (```F1 = 0.37```) when looking at overall F1 score. This performance is surprising, considering the loss curves of ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. Although the ```FAKE``` models do not outperform the other real models (```REAL LeNet```and ```REAL VGG16```), their performance being well above chance level for most classes is quite significant and looks promising for the use of artificial images as an alternative to data augmentation.
 
 
 ## Author 
