@@ -1,5 +1,5 @@
 # CIFAKE: Comparing classifiers on FAKE vs. REAL image data
-This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. All code is written by Mina Almasi (202005465) although some code may be adapted from classwork or external tutorials (see also [Code Reuse](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#code-reuse)).
+This repository forms the self-assigned *assignment 4* in the subject Visual Analytics, Cultural Data Science, F2023. The code is written by Mina Almasi (202005465).
 
 The repository aims to investigate the utility of artificially generated images as an alternative to data augmentation when training classifiers to predict real life images. For this purpose, the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset (Bird & Lofti, 2023) is used. 
 
