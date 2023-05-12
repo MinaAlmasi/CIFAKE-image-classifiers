@@ -62,7 +62,7 @@ def main():
     # define paths 
     path = pathlib.Path(__file__)
     metadatapath = path.parents[1] / "images" / "metadata" / args.data_label # args.data_label is either FAKE or REAL (indicating which dataset to work on)
-    resultspath = path.parents[1] / "results"
+    resultspath = path.parents[1] / "E1_results"
     modelpath = path.parents[1] / "models" / "NN_model"
 
     # load metadata 

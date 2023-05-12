@@ -4,7 +4,7 @@ Script for self-assigned Assignment 4, Visual Analytics, Cultural Data Science, 
 Evaluating the best FAKE classifiers on the REAL test data.
 
 Run script in the terminal by typing: 
-    python src/visualise.py
+    python src/final_evaluate.py
 
 @MinaAlmasi
 '''
