@@ -69,7 +69,7 @@ bash run.sh
 ## Results 
 The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``` of the model refers to whether the model has been trained on the ```FAKE``` or ```REAL``` dataset. 
 
-### (```E1```) Loss Curves
+### (```E1```) Loss and Accuracy Curves
 #### Neural Network
 <p align="left">
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/NN_histories.png">
@@ -86,7 +86,9 @@ The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``
 </p>
 
 
-### (```E1```)  Evaluation Metrics: F1-score and Accuracy 
+
+
+### (```E1```)  Evaluation Metrics: F1-score
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
 | REAL VGG16 |       0.65 |         0.69 |   0.52 |  0.48 |   0.54 |  0.57 |   0.67 |    0.65 |   0.72 |    0.68 |       0.62 |        0.62 |           0.62 |       10 |
@@ -99,12 +101,11 @@ The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``
 For all models, the F1-score for each class along with the overall accuracies are highlighted in the table above. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
 
 ### (```E2```) Evaluating ```FAKE``` Classifiers on ```REAL``` Test Data
-Since both the ```FAKE LeNet (F1 = 0.84)``` and  
-The two best performing ```FAKE``` classifiers were evaluated on the CIFAR-10 test dataset.  
+Since the ```FAKE LeNet (F1 = 0.84)``` and ```FAKE VGG16 (F1 = 0.85)``` performed similarly, both are evaluated on the ```REAL```CIFAR-10 test dataset. The table below shows the F1-scores: 
 |            |   Airplane |   Automobile |   Bird |   Cat |   Deer |   Dog |   Frog |   Horse |   Ship |   Truck |   Accuracy |   Macro_Avg |   Weighted_Avg |   Epochs |
 |------------|------------|--------------|--------|-------|--------|-------|--------|---------|--------|---------|------------|-------------|----------------|----------|
-| FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |   0.3 |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
-| FAKE VGG16 |       0.01 |         0    |   0.21 |  0    |   0    |   0   |   0    |    0    |   0.18 |    0.05 |       0.11 |        0.04 |           0.04 |       18 |
+| FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |  0.3  |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
+| FAKE VGG16 |       0.46 |         0.44 |   0.37 |  0.34 |   0.37 |  0.39 |   0.17 |    0.48 |   0.57 |    0.53 |       0.42 |        0.41 |           0.41 |       18 |
 
 
 ## Author 
