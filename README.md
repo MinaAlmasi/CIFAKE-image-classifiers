@@ -70,17 +70,17 @@ bash run.sh
 ### (```E1```) Loss Curves
 #### Neural Network
 <p align="left">
-  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/visualisations/NN_histories.png">
+  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/NN_histories.png">
 </p>
 
 #### LeNet
 <p align="left">
-  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/visualisations/LeNet_histories.png">
+  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/LeNet_histories.png">
 </p>
 
 #### VGG16
 <p align="left">
-  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/visualisations/VGG16_histories.png">
+  <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/VGG16_histories.png">
 </p>
 
 
