@@ -18,7 +18,6 @@ import pathlib
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications.vgg16 import preprocess_input # prepare image for VGG16
 
-
 # custom modules for loading data, metrics, logging
 from modules.load_data import load_metadata, load_tf_data
 from modules.classify_pipeline import clf_get_metrics
