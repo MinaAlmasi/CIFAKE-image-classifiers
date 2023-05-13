@@ -51,7 +51,7 @@ def main():
     # save path for visualisations
     savepath = path.parents[1] / "E2_visualisations"
     savepath.mkdir(exist_ok=True, parents=True)
-    '''
+
     # model paths 
     LeNet_modelpath = path.parents[1] / "models" / "LeNet_model"
     VGG16_modelpath = path.parents[1] / "models" / "VGG16_model"
@@ -85,7 +85,7 @@ def main():
         file_name = model.split("_")
         with open(resultspath / f"FAKE_{file_name[0]}_metrics_{file_name[1]}.txt", "w") as file: 
             file.write(metrics)
-    '''
+
     # make metrics into dataframes
     metrics_data, epochs = create_metrics_dataframes(resultspath)
 
