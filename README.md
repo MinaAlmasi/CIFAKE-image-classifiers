@@ -49,6 +49,7 @@ The repository is structured as such:
 | ```requirements.txt``` | Necessary packages to be pip installed|
 | ```setup.sh``` | Run to install ```requirements.txt``` within newly created ```env``` |
 | ```run.sh``` | Run to reproduce entire pipeline including creating metadata, running classifications, evaluating classifiers, making visualisations.|
+| ```run-X.sh``` | 3 seperate bash scripts to run only the model training and evaluation (E1) |
 
 
 ## Pipeline 
@@ -65,6 +66,11 @@ To run the entire experimental pipeline, type the following in the terminal:
 bash run.sh
 ```
 
+#### Training models seperately, 
+If you wish to run the model training and evaluation for each model framework seperately, you can run the ```run-X.sh``` bash scripts. For instance: 
+```
+bash run-VGG16.sh
+```
 
 ## Results 
 The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``` of the model refers to whether the model has been trained on the ```FAKE``` or ```REAL``` dataset. 
