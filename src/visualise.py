@@ -17,7 +17,7 @@ Run script in the terminal by typing:
 import pathlib 
 
 # custom module for plotting and creating table
-from modules.visualisation import plot_histories, create_metrics_dataframes, create_table
+from modules.visualisation import load_model_histories, plot_histories, create_metrics_dataframes, create_table
 
 def main(): 
     # define paths 
@@ -39,7 +39,7 @@ def main():
     header_labels = metrics_data["REAL_VGG16"]["class"].tolist() + ["epochs"]
 
     # turn dataframes into table 
-    metrics_table = create_table(metrics_data, header_labels, epochs)
+    metrics_table = create_table(metrics_data, epochs, header_labels)
 
     # save metrics_table
     with open(savepath/"all_metrics_table.txt", 'w') as file:

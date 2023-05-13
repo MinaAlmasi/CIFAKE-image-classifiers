@@ -8,11 +8,11 @@ Run script in the terminal by typing:
 
 @MinaAlmasi
 '''
-
-from tensorflow import keras
-
 # utils
 import pathlib 
+
+# to load models
+from tensorflow import keras
 
 # image import 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -21,6 +21,7 @@ from tensorflow.keras.applications.vgg16 import preprocess_input # prepare image
 # custom modules for loading data, metrics, logging
 from modules.load_data import load_metadata, load_tf_data
 from modules.classify_pipeline import clf_get_metrics
+
 from modules.utils import custom_logger
 from modules.visualisation import create_metrics_dataframes, create_table
 
@@ -69,7 +70,6 @@ def main():
     # load test data for LeNet
     test_LeNet = load_tf_data(datagen_LeNet, meta_dict["test"], "rgb", "filepath", "label", (32, 32), 64, shuffle=False)
     test_VGG16 = load_tf_data(datagen_VGG16, meta_dict["test"], "rgb", "filepath", "label", (32, 32), 64, shuffle=False)
-
 
     # load models
     FAKE_LeNet = keras.models.load_model(LeNet_modelpath / "FAKE_LeNet_model_11e.h5")
