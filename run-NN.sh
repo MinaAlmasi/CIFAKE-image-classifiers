@@ -5,8 +5,8 @@ source ./env/bin/activate
 
 # run simple neural network 
 echo -e "\n [INFO:] Running classification pipeline with simple neural network ..." # user msg 
-python3.9 src/classify_NN.py -data FAKE
-python3.9 src/classify_NN.py -data REAL
+python3 src/classify_NN.py -data FAKE
+python3 src/classify_NN.py -data REAL
 
 # deactivate virtual environment
 deactivate

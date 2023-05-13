@@ -53,6 +53,9 @@ The repository is structured as such:
 
 
 ## Pipeline 
+The pipeline has been tested on Ubuntu v22.10, Python v3.10.7 ([UCloud](https://cloud.sdu.dk/), Coder Python 1.77.3). 
+Python's [venv](https://docs.python.org/3/library/venv.html) needs to be installed for the pipeline to work.
+
 ### Setup
 Prior to running the pipeline, please firstly install the [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset from Kaggle. 
 
