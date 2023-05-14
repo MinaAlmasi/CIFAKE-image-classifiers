@@ -99,7 +99,7 @@ For the loss and accuracy curves below, it is worth noting that the six models h
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/VGG16_histories.png">
 </p>
 
-In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16``` that shows signs of overfitting with the training loss continously dropping while the validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th and last epoch), it is less prominent.  
+In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16``` that shows signs of overfitting with the training loss continously dropping while the validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th epoch and also the last epoch), it is less prominent.  
 
 ### (```E1```)  Evaluation Metrics: F1-score
 The F1 score (and the single ```Accuracy``` score) for all models is shown in the table below. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
