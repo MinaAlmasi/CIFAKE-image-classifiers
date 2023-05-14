@@ -1,4 +1,4 @@
-Place your dataset of [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset in this folder ! 
+Place your [CIFAKE](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) dataset in this folder ! 
 
 The data folder should be structured with subdirectories as such: 
 ```
