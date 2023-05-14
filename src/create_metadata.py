@@ -15,7 +15,7 @@ import pathlib
 # data wrangling 
 import pandas as pd
 
-def get_filenames(subdirectory:pathlib.Path()): 
+def get_filenames(subdirectory:pathlib.Path): 
     '''
     Get file names in subdirectory. 
 
