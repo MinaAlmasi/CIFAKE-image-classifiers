@@ -20,7 +20,7 @@ Therefore, this project concretely aims to assess whether the ```CIFAKE``` artif
 
 For this purpose, two experiments are conducted:
 
-###  ```(E1)``` Training Classifiers on ```REAL``` vs ```FAKE``` data
+###  ```(E1)``` Training Classifiers on ```REAL``` vs ```FAKE``` Data
 In experiment 1, three classifiers will be trained for each dataset (```FAKE``` and ```REAL``` ) seperately using TensorFlow. These classifiers increase in complexity:
 
 1. Simple Neural Network 
@@ -35,21 +35,22 @@ In experiment 2, the best performing ```FAKE``` classifier will be evaluated on 
 ## Reproducibility 
 To reproduce the results, follow the instructions in the [Pipeline](https://github.com/MinaAlmasi/CIFAKE-image-classifiers#pipeline) section. 
 
-NB! Be aware that training the model is computationally heavy. Cloud computing (e.g., [UCloud]([UCloud](https://cloud.sdu.dk/))) with high amounts of ram (or a good GPU) is encouraged.
+NB! Be aware that training models is computationally heavy. Cloud computing (e.g., [UCloud](https://cloud.sdu.dk/)) with high amounts of ram (or a good GPU) is encouraged.
 
 ## Project Structure
 The repository is structured as such: 
+
 | <div style="width:120px"></div>| Description |
 |---------|:-----------|
-| ```E1_results``` | Results from experiment 1 (E1): model histories, individual loss/accuracy curves, evaluation metrics |
-| ```E1_visualisations``` | Visualisations made on results from experiment 1 (E1).|
-| ```E2_results``` | Results from experiment 2 (E2): evaluation metrics of the two fake classifiers on the ```REAL``` test data|
+| ```E1_results``` | Results from experiment 1 (E1): model histories, individual loss/accuracy curves, evaluation metrics. |
+| ```E1_visualisations``` | Visualisations made on results from experiment 1 (E1). |
+| ```E2_results``` | Results from experiment 2 (E2): evaluation metrics of two ```FAKE``` classifiers on the ```REAL``` test data.|
 | ```E2_visualisations``` | Visualisations made on results from from experiment 2 (E2).|
-| ```src```  | Scripts for creating metadata for dataset, running classifications, creating visualisations and doing the final evaluation (E2).|
-| ```requirements.txt``` | Necessary packages to be pip installed|
-| ```setup.sh``` | Run to install ```requirements.txt``` within newly created ```env``` |
+| ```src```  | Scripts for creating metadata for the dataset, running classifications, creating visualisations, and for doing the final evaluation.|
+| ```requirements.txt``` | Necessary packages to be installed. | 
+| ```setup.sh``` | Run to install ```requirements.txt``` within newly created ```env```. |
 | ```run.sh``` | Run to reproduce entire pipeline including creating metadata, running classifications, evaluating classifiers, making visualisations.|
-| ```run-X.sh``` | 3 seperate bash scripts to run only the model training and evaluation (E1) |
+| ```run-X.sh``` | 3 seperate bash scripts to run only the model training and evaluation (E1). |
 
 
 ## Pipeline 
@@ -69,14 +70,14 @@ To run the entire experimental pipeline, type the following in the terminal:
 bash run.sh
 ```
 
-### Training models seperately, 
-If you wish to run the model training and evaluation for each model framework seperately, you can run the ```run-X.sh``` bash scripts. For instance: 
+### Training Models Seperately
+If you wish to run the model training and evaluation for each model framework seperately, you can run the ```run-X.sh``` scripts. For instance: 
 ```
 bash run-VGG16.sh
 ```
 
 ## Results 
-The results are shown below. Please note that the prefix ```FAKE``` or ```REAL``` of the model refers to whether the model has been trained on the ```FAKE``` or ```REAL``` dataset. 
+The results are shown below. Please note that the model prefix ```FAKE``` or ```REAL``` refers to whether the model has been trained on the ```FAKE``` or ```REAL``` dataset. 
 
 ### (```E1```) Loss and Accuracy Curves
 For the loss and accuracy curves below, it is worth noting that the six models have not run for the same amount of epochs due to a strict early-stopping callback, making the model training stop if the validation accuracy does not improve for more than 2 epochs. 
@@ -96,7 +97,7 @@ For the loss and accuracy curves below, it is worth noting that the six models h
   <img src="https://github.com/MinaAlmasi/CIFAKE-image-classifiers/blob/main/E1_visualisations/VGG16_histories.png">
 </p>
 
-In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16```that shows signs of overfitting with the training loss continously dropping while validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th epoch), it is less prominent.  
+In general, the ```LeNet``` and ```NN``` seem to fit well to the data in comparison to the ```VGG16``` that shows signs of overfitting with the training loss continously dropping while validation loss is increasing slightly. Although the ```REAL LeNet``` also shows signs of this (with a spike upward in validation loss at the 8th epoch), it is less prominent.  
 
 ### (```E1```)  Evaluation Metrics: F1-score
 The F1 score (and the single ```Accuracy``` score) for all models is shown in the table below. For precision and recall metrics, please check the individual metrics.txt files in the ```E1_results``` folder. 
@@ -110,7 +111,7 @@ The F1 score (and the single ```Accuracy``` score) for all models is shown in th
 | REAL NN    |       0.36 |         0.45 |   0.29 |  0.21 |   0.32 |  0.34 |   0.36 |    0.41 |   0.46 |    0.46 |       0.37 |        0.37 |           0.37 |       20 |
 | FAKE NN    |       0.55 |         0.74 |   0.58 |  0.52 |   0.67 |  0.43 |   0.55 |    0.55 |   0.61 |    0.63 |       0.59 |        0.58 |           0.58 |       20 |
 
-In general, macro averaged F1 scores are higher for the ```FAKE``` dataset. It may be that the dataset is less complex/noisy.
+Overall, the macro averaged F1 scores are higher for the ```FAKE``` dataset. It may be that the dataset is less complex/noisy.
 
 ### (```E2```) Evaluating ```FAKE``` Classifiers on ```REAL``` Test Data
 Since the ```FAKE LeNet (macro avg F1 = 0.84)``` and ```FAKE VGG16 (macro avg F1 = 0.85)``` performed similarly, both are evaluated on the ```REAL``` CIFAR-10 test dataset. The table below shows the F1-scores: 
@@ -120,7 +121,7 @@ Since the ```FAKE LeNet (macro avg F1 = 0.84)``` and ```FAKE VGG16 (macro avg F1
 | FAKE LeNet |       0.38 |         0.39 |   0.33 |  0.28 |   0.27 |  0.3  |   0.11 |    0.41 |   0.56 |    0.46 |       0.36 |        0.35 |           0.35 |       11 |
 | FAKE VGG16 |       0.46 |         0.44 |   0.37 |  0.34 |   0.37 |  0.39 |   0.17 |    0.48 |   0.57 |    0.53 |       0.42 |        0.41 |           0.41 |       18 |
 
-Interestingly, the ```FAKE VGG16```  (```macro avg = 0.42```) tested on the ```REAL``` data outperforms the ```REAL NN``` (```macro avg = 0.37```) when looking at overall F1 score. This performance is surprising, considering the loss curves of ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. Although the ```FAKE``` models do not outperform the other real models (```REAL LeNet```and ```REAL VGG16```), their performance being well above chance level for most classes is quite significant and looks promising for the use of artificial images as an alternative to data augmentation.
+Interestingly, the ```FAKE VGG16```  (```macro avg = 0.42```) tested on the ```REAL``` data outperforms the ```REAL NN``` (```macro avg = 0.37```). This performance is surprising, considering the loss curves of ```VGG16``` showing signs of overfitting. A possible explanation is to be found in the fact that  ```VGG16``` is pre-trained and likely contains image embeddings equivalent/close to the 10 classes, making it an easier task to fit a classifier with  ```VGG16```. Although the ```FAKE``` models do not outperform the other real models (```REAL LeNet```and ```REAL VGG16```), their performance being well above chance level for most classes is quite significant and looks promising for the use of artificial images as an alternative to data augmentation.
 
 
 ## Author 
