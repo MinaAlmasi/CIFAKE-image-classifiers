@@ -23,7 +23,7 @@ import pandas as pd
 from tabulate import tabulate 
 
 
-def load_model_histories(resultspath):
+def load_model_histories(resultspath:pathlib.Path):
     '''
     Loads all history objects from a given path and returns them in a dictionary.
 
@@ -95,7 +95,7 @@ def add_headers(fig,*,row_headers=None,col_headers=None,row_pad=1,col_pad=5,**te
                 **text_kwargs, # pass kwargs to text object to style headers
             )
 
-def plot_histories(history1:dict, history2:dict, row_headers:list, savepath:str, filename:str):
+def plot_histories(history1:dict, history2:dict, row_headers:list, savepath:pathlib.Path, filename:str):
     '''
     Plots the loss and accuracy histories of two models side by side.
 
@@ -148,7 +148,7 @@ def plot_histories(history1:dict, history2:dict, row_headers:list, savepath:str,
     # save fig 
     fig.savefig(savepath / filename, dpi=300)
 
-def create_data_from_metrics_txt(filepath):
+def create_data_from_metrics_txt(filepath:pathlib.Path):
     '''
     Create a dataframe from a text file containing the classification report from sklearn.metrics.classification_report
 
@@ -182,7 +182,7 @@ def create_data_from_metrics_txt(filepath):
 
     return data
 
-def create_metrics_dataframes(resultspath):
+def create_metrics_dataframes(resultspath:pathlib.Path):
     '''
     Loads all history objects from a given path and returns them in a dictionary.
 
