@@ -5,12 +5,6 @@ This script comprises several functions which make up a pipeline for training an
 
 @MinaAlmasi
 '''
-# keras layers 
-from tensorflow.keras.layers import (Flatten, 
-                                     Dense, 
-                                     Dropout, 
-                                     BatchNormalization)
-
 # early stopping callback 
 from tensorflow.keras.callbacks import EarlyStopping
 
