@@ -218,6 +218,19 @@ def create_metrics_dataframes(resultspath:pathlib.Path):
     return metrics_dfs, epochs
 
 def create_table(data:dict, epochs:list, header_labels:list, metric:str="f1-score"): 
+    '''
+    Create table from dictionary with dataframes created from create_metrics_dataframes.
+
+    Args: 
+        - data: dictionary of dataframes, one for each model run
+        - epochs: list of epochs for each model (in the same order) as the dictionary of dataframes
+        - header_labels: list of header labels
+        - metric: "f1-score", "precision" or "recall". Note that the f1-score metric also includes an accuracy column.
+
+    Returns: 
+        - table: table in markdown format for github README.
+    '''
+
     # Capitalize header_labels
     header_labels = [header.title() for header in header_labels]
 
