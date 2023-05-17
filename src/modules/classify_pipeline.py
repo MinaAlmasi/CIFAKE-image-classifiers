@@ -5,14 +5,13 @@ This script comprises several functions which make up a pipeline for training an
 
 @MinaAlmasi
 '''
-
 # keras layers 
 from tensorflow.keras.layers import (Flatten, 
                                      Dense, 
                                      Dropout, 
                                      BatchNormalization)
 
-
+# early stopping callback 
 from tensorflow.keras.callbacks import EarlyStopping
 
 # optimizers
@@ -35,7 +34,7 @@ import numpy as np
 from sklearn import metrics
 
 # functions
-def clf_save_model_card(model, savepath:str, filename): # adapted from prev. assignment
+def clf_save_model_card(model, savepath:str, filename:str): # adapted from prev. assignment
     '''
     Save model card (summary of layers, trainable parameters) as txt file in desired directory (savepath).
 
@@ -186,6 +185,20 @@ def clf_get_metrics(model, test_data):
 def clf_pipeline(model, train_data, val_data, test_data, epochs:int, early_stop_epochs:int, model_name, modelpath, resultspath):
     '''
     Train and evaluate instantiated keras model with scikit-learn and tensorflow. 
+
+    Args:
+        - model: intialised model
+        - train_data, val_data, test_data: data to be trained on, validated on and tested on
+        - epochs: number of epochs that the model should train for
+        - early_stop_epochs: number of epochs that the model should CONTINUE training for if accuracy does not improve (early stopping parameter).
+        - model_name: name of model (e.g., "CNN")
+        - modelpath: path to save model
+        - resultspath: path to save results
+
+    Returns:
+        - .png file of loss and accuracy plot in "savepath" for the particular model
+        - .pickle file of model history in "savepath" for the particular model
+        - .pickle file of classification report in "savepath" for the particular model
     '''
 
     # intialize logger 
