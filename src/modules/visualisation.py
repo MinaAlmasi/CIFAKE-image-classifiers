@@ -121,24 +121,27 @@ def plot_histories(history1:dict, history2:dict, row_headers:list, savepath:path
     fig, axes = plt.subplots(2, 2, figsize=(12,6))
 
     # loss history 1
-    axes[0, 0].plot(np.arange(1, epochs_history1), history1["loss"], label="train_loss") # plot train loss 
-    axes[0, 0].plot(np.arange(1, epochs_history1), history1["val_loss"], label="train_loss") # plot train loss 
+    axes[0, 0].plot(np.arange(1, epochs_history1), history1["loss"], label="Train") 
+    axes[0, 0].plot(np.arange(1, epochs_history1), history1["val_loss"], label="Val", linestyle=":") 
 
     # accuracy history 1
-    axes[0, 1].plot(np.arange(1, epochs_history1), history1["accuracy"], label="train_loss") # plot train loss 
-    axes[0, 1].plot(np.arange(1, epochs_history1), history1["val_accuracy"], label="train_loss") # plot train loss 
+    axes[0, 1].plot(np.arange(1, epochs_history1), history1["accuracy"], label="Train") 
+    axes[0, 1].plot(np.arange(1, epochs_history1), history1["val_accuracy"], label="Val", linestyle=":") 
     
     # loss history 2
-    axes[1, 0].plot(np.arange(1, epochs_history2), history2["loss"], label="train_loss") # plot train loss
-    axes[1, 0].plot(np.arange(1, epochs_history2), history2["val_loss"], label="train_loss") # plot train loss
+    axes[1, 0].plot(np.arange(1, epochs_history2), history2["loss"], label="Train") 
+    axes[1, 0].plot(np.arange(1, epochs_history2), history2["val_loss"], label="Val", linestyle=":") 
     
     # accuracy history 2
-    axes[1, 1].plot(np.arange(1, epochs_history2), history2["accuracy"], label="train_loss") # plot train loss 
-    axes[1, 1].plot(np.arange(1, epochs_history2), history2["val_accuracy"], label="train_loss") # plot train loss 
+    axes[1, 1].plot(np.arange(1, epochs_history2), history2["accuracy"], label="Train") 
+    axes[1, 1].plot(np.arange(1, epochs_history2), history2["val_accuracy"], label="Val", linestyle=":") 
     
     # set x labels
     axes[1, 0].set_xlabel("Epochs")
     axes[1, 1].set_xlabel("Epochs")
+
+    # add legend to the left upper corner
+    axes[0, 1].legend(bbox_to_anchor=(0.9, 1.3), loc="upper left", prop = {"size":14, "weight":"bold"})
 
     # add column and row headers
     col_headers = ["Loss", "Accuracy"]
