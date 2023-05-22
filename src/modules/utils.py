@@ -3,7 +3,7 @@ Utils script for Assignment 4, Visual Analytics, Cultural Data Science, F2023
 
 The following script contains: 
     - a function that customises a logging logger to display messages in the terminal
-    - a function that to parse arguments to the command line 
+    - a function to parse arguments to the command line 
 
 @MinaAlmasi
 '''
