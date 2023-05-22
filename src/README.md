@@ -8,4 +8,4 @@ The src folder contains the following scripts that can be run by typing ```pytho
 | ```final_evaluate.py```  | Script to evaluate ```FAKE``` classifiers on ```REAL``` testdata (E2)|
  
 
-The above mentioned scripts rely on functions defined in the ```modules``` folder.
+The abovementioned scripts rely on functions defined in the ```modules``` folder.
